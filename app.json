@@ -26,5 +26,5 @@
     },
     "plugins": ["expo-router"],
     "scheme": "supplya"
-  },
+  }
 }
