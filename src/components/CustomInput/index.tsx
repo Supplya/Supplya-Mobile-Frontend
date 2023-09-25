@@ -5,11 +5,11 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Controller } from "react-hook-form";
+import { Controller, ControllerProps } from "react-hook-form";
 
-const CustomInput = ({ title, control, name, rules = {} }) => {
+const CustomInput = ({ title, control, name, rules = {}, pairInput = false }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, pairInput && {flex: 1}]}>
       <Text style={styles.title}>{title}</Text>
       <Controller
         control={control}
@@ -38,7 +38,6 @@ export default CustomInput;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     width: "100%",
     marginBottom: 10,
   },

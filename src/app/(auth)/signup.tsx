@@ -23,6 +23,8 @@ import { Link, router } from "expo-router";
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+const phoneNumberRegex = /^(?:\+\d{13}|\d{11})$/;
+
 const SignUp = () => {
   const { handleSubmit, control, reset, watch } = useForm();
   const pwd = watch("password");
@@ -59,6 +61,7 @@ const SignUp = () => {
                 title="First name"
                 control={control}
                 name="firstName"
+                pairInput
                 rules={{
                   required: " First name is required",
                   minLength: {
@@ -75,6 +78,7 @@ const SignUp = () => {
                 title="Last name"
                 control={control}
                 name="lastName"
+                pairInput
                 rules={{
                   required: "First name is required",
                   minLength: {
@@ -99,9 +103,17 @@ const SignUp = () => {
                   message: "Email address is invalid",
                 },
               }}
-            />
+              />
             <CustomInput
               title="Phone Number"
+              rules={{
+                required: "Phone number is required",
+                pattern: {
+                  value: phoneNumberRegex,
+                  message: "Phone number is invalid",
+                },
+                
+              }}
               control={control}
               name="phoneNumber"
             />
@@ -147,33 +159,26 @@ const SignUp = () => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#FFF",
-  //   width: "100%",
-  //   height: hp("100%"),
-  // },
   content: {
     paddingHorizontal: 24,
     paddingTop: hp("11%"),
     alignItems: "center",
-    minHeight: hp("100%")
+    minHeight: hp("100%"),
   },
   titleView: {
     marginVertical: 15,
     alignItems: "center",
+    marginBottom: 40,
   },
   title: {
     fontFamily: FONTS.bold,
     fontSize: wp("6.1%"),
     letterSpacing: -0.408,
-    lineHeight: wp(SIZES.large) * 0.92,
     marginBottom: 5,
   },
   subtitle: {
     fontFamily: FONTS.medium,
     fontSize: wp(SIZES.medium),
-    lineHeight: wp(SIZES.medium) * 0.93,
   },
   form: {
     // backgroundColor: "red"
@@ -183,14 +188,13 @@ const styles = StyleSheet.create({
   },
   loginView: {
     flexDirection: "row",
-    marginTop: 15,
+    marginTop: 10,
     alignItems: "center",
     justifyContent: "center",
   },
   haveAccountText: {
     fontFamily: FONTS.regular,
     fontSize: wp(SIZES.medium),
-    lineHeight: wp(SIZES.medium) * 0.92,
   },
   loginText: {
     fontFamily: FONTS.medium,
@@ -198,6 +202,5 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     textDecorationColor: COLORS.primary,
     color: COLORS.primary,
-    lineHeight: wp(SIZES.medium) * 0.92,
   },
 });
