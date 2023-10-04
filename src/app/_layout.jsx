@@ -1,9 +1,14 @@
-import { View } from "react-native"
-import { useCallback } from "react"
+import { View } from "react-native";
+import { useCallback } from "react";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen"
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import * as SplashScreen from "expo-splash-screen";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
@@ -21,15 +26,16 @@ export default function RootLayout() {
     if (fontsLoaded || fontError) {
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]); 
+  }, [fontsLoaded, fontError]);
 
   if (!fontsLoaded && !fontError) {
     return null;
   }
 
   return (
-    <View style={{width: wp("100%"), minHeight: hp("100%") }} onLayout={onLayoutRootView}>
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <Stack screenOptions={{ headerShown: false }} />
+      {/* <StatusBar translucent={false} animated /> */}
     </View>
   );
 }

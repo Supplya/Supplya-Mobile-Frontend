@@ -19,6 +19,7 @@ import { StatusBar } from "expo-status-bar";
 import { useForm } from "react-hook-form";
 import CustomButton from "@comp/CustomButton";
 import { Link, router } from "expo-router";
+import Pagination from "@/components/Pagination";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -36,7 +37,7 @@ const SignUp = () => {
   };
 
   return (
-    <View style={{ width: wp("100%") }}>
+    <View style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -103,7 +104,7 @@ const SignUp = () => {
                   message: "Email address is invalid",
                 },
               }}
-              />
+            />
             <CustomInput
               title="Phone Number"
               rules={{
@@ -112,7 +113,6 @@ const SignUp = () => {
                   value: phoneNumberRegex,
                   message: "Phone number is invalid",
                 },
-                
               }}
               control={control}
               name="phoneNumber"
@@ -150,7 +150,7 @@ const SignUp = () => {
             </Link>
           </View>
         </ScrollView>
-        <StatusBar />
+        <StatusBar translucent={false} />
       </KeyboardAvoidingView>
     </View>
   );
@@ -159,14 +159,17 @@ const SignUp = () => {
 export default SignUp;
 
 const styles = StyleSheet.create({
+  container: {
+    width: wp("100%"),
+    backgroundColor: COLORS.white,
+  },
   content: {
     paddingHorizontal: 24,
-    paddingTop: hp("11%"),
+    paddingTop: hp("10%"),
     alignItems: "center",
     minHeight: hp("100%"),
   },
   titleView: {
-    marginVertical: 15,
     alignItems: "center",
     marginBottom: 40,
   },

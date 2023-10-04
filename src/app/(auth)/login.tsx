@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <View style={{ width: wp("100%") }}>
+    <View style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "height" : "padding"}
       >
@@ -43,7 +43,7 @@ const Login = () => {
             <Text style={styles.title}>Please Login</Text>
             <Text style={styles.subtitle}>to your Supplya account</Text>
           </View>
-          <View style={{ flex: 1, width: "100%"}}>
+          <View style={{ flex: 1, width: "100%" }}>
             <CustomInput
               title="Email / Phone"
               control={control}
@@ -105,7 +105,7 @@ const Login = () => {
             </View>
           </View>
         </ScrollView>
-        <StatusBar />
+        <StatusBar translucent={false} backgroundColor={COLORS.white} />
       </KeyboardAvoidingView>
     </View>
   );
@@ -114,14 +114,17 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  container: {
+    width: wp("100%"),
+    backgroundColor: COLORS.white,
+  },
   content: {
     paddingHorizontal: 24,
-    paddingTop: hp("11%"),
+    paddingTop: hp("10%"),
     alignItems: "center",
     minHeight: hp("100%"),
   },
   titleView: {
-    marginVertical: 15,
     alignItems: "center",
     marginBottom: 40,
   },

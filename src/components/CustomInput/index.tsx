@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.gray,
     width: "100%",
+    
   },
   error: {
-    // height: wp("3%") * 1.1,
     fontFamily: FONTS.regular,
     fontSize: wp("3%"),
     color: COLORS.red,
