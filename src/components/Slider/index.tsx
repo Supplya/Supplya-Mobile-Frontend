@@ -34,17 +34,9 @@ const Slider = () => {
     }
   );
 
-  // const handleOnItemChanged = useRef(({ viewableItems }) => {
-  //   setIndex(viewableItems[0].index)
-  // }).current;
-
-  // const handleViewabilityConfig = useRef({
-  //   viewAreaCoveragePercentThreshold: 50,
-  // }).current;
-
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <FlatList
           data={welcomeData}
           renderItem={({ item, index }) => (
@@ -53,12 +45,12 @@ const Slider = () => {
               description={item.description}
               image={item.image}
               index={index}
+              skipScreen={skipToLastIndex}
             />
           )}
           ref={scrollRef}
           initialScrollIndex={index}
           horizontal
-          scrollEnabled={false}
           snapToAlignment="center"
           pagingEnabled
           showsHorizontalScrollIndicator={false}
@@ -72,8 +64,6 @@ const Slider = () => {
         data={welcomeData}
         scrollX={scrollX}
         index={index}
-        nextScreen={incrementIndex}
-        lastScreen={skipToLastIndex}
       />
     </View>
   );
@@ -83,6 +73,6 @@ export default Slider;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.8,
   },
 });

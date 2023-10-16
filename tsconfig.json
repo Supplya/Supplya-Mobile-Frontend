@@ -2,11 +2,25 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@comp/*": ["src/components/*"],
-      "@const/*": ["constants/*"],
-      "@img/*": ["assets/images/*"]      
+      "@/*": [
+        "src/*"
+      ],
+      "@comp/*": [
+        "src/components/*"
+      ],
+      "@const/*": [
+        "constants/*"
+      ],
+      "@img/*": [
+        "assets/images/*"
+      ]
     }
   },
-  "extends": "expo/tsconfig.base"
+  "extends": "expo/tsconfig.base",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
 }

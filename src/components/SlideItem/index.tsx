@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { Image } from "expo-image";
 import { COLORS, FONTS, SIZES } from "@const/theme";
@@ -6,36 +6,28 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
-import CustomButton from "../CustomButton";
-import { router } from "expo-router";
 
-const SlideItem = ({ title, description, image, index }) => {
+const SlideItem = ({ title, description, image, index, skipScreen }) => {
   return (
     <View style={styles.container}>
       <Image
         source={image}
         style={{
           width: "100%",
-          flex: 0.6,
-          borderRadius: 10,
-          overflow: "hidden",
+          flex: 0.7,
+          backgroundColor: "red"
         }}
         contentFit="cover"
       />
-      <View style={{}}>
-        <Text style={styles.title}>{title}</Text>
+      {
+        index > 0 && 
+      <TouchableOpacity style={styles.skipButton} onPress={skipScreen}>
+        <Text style={styles.skipText}>Skip</Text>
+      </TouchableOpacity>
+      }
+      <Text style={[styles.title, index === 0 && {alignSelf: "flex-start", paddingLeft: 10, fontSize: wp(SIZES.extraLarge) }]}>{title}</Text>
 
-        <Text>{description}</Text>
-      </View>
-      {index === 4 && (
-        <View style={styles.buttonView}>
-          <CustomButton
-            title="Sign up"
-            onPress={() => router.replace("signup")}
-            />
-          <CustomButton title="Login" onPress={() => router.replace("login")} />
-        </View>
-      )}
+      <Text style={styles.subtitle}>{description}</Text>
     </View>
   );
 };
@@ -44,11 +36,10 @@ export default SlideItem;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
     // flex: 1,
-    height: hp(100),
     width: wp(100),
-    paddingHorizontal: 15,
+    height: hp(100),
+    alignItems: "center",
   },
   title: {
     fontFamily: FONTS.bold,
@@ -59,12 +50,19 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: FONTS.regular,
-    fontSize: wp(SIZES.medium),
-    color: COLORS.dark,
+    fontSize: 16,
+    // fontSize: wp(SIZES.medium),
+    color: COLORS.gray,
   },
-  buttonView: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  skipButton: {
+    position: 'absolute',
+    right: 30,
+    top: 30,
+    zIndex: 3,
+  },
+  skipText: {
+    fontFamily: FONTS.medium,
+    fontSize: wp(SIZES.medium),
     marginTop: 30,
   },
 });

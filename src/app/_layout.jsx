@@ -13,13 +13,14 @@ import { StatusBar } from "expo-status-bar";
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    montsRegular: require("assets/fonts/Montserrat-Regular.ttf"),
-    montsLight: require("assets/fonts/Montserrat-Light.ttf"),
-    montsSemiBold: require("assets/fonts/Montserrat-SemiBold.ttf"),
-    montsBold: require("assets/fonts/Montserrat-Bold.ttf"),
-    montsExtraBold: require("assets/fonts/Montserrat-ExtraBold.ttf"),
-    montsThin: require("assets/fonts/Montserrat-Thin.ttf"),
-    montsMedium: require("assets/fonts/Montserrat-Medium.ttf"),
+    nunitoLight: require("assets/fonts/Nunito-Light.ttf"),
+    nunitoExtraLight: require("assets/fonts/Nunito-ExtraLight.ttf"),
+    nunitoRegular: require("assets/fonts/Nunito-Regular.ttf"),
+    nunitoMedium: require("assets/fonts/Nunito-Medium.ttf"),
+    nunitoSemiBold: require("assets/fonts/Nunito-SemiBold.ttf"),
+    nunitoBold: require("assets/fonts/Nunito-Bold.ttf"),
+    nunitoExtraBold: require("assets/fonts/Nunito-ExtraBold.ttf"),
+    nunitoBlack: require("assets/fonts/Nunito-Black.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -35,7 +36,6 @@ export default function RootLayout() {
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <Stack screenOptions={{ headerShown: false }} />
-      {/* <StatusBar translucent={false} animated /> */}
     </View>
   );
 }

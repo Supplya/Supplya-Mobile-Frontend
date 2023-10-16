@@ -24,7 +24,9 @@ import Pagination from "@/components/Pagination";
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const phoneNumberRegex = /^(?:\+\d{13}|\d{11})$/;
+const phoneNumberRegex = /^\d{10}|\d{11}$/;  /^(?:\+\d{13}|\d{11})$/
+
+const countryCodeRegex = /^\+\d{1,4}\s\d{1,}$/;
 
 const SignUp = () => {
   const { handleSubmit, control, reset, watch } = useForm();
@@ -40,55 +42,99 @@ const SignUp = () => {
     <View style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
       >
         <ScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={styles.content}
         >
           <View style={styles.titleView}>
-            <Text style={styles.title}>Create an Account</Text>
-            <Text style={styles.subtitle}>Create a Supplya account</Text>
+            <Text style={styles.title}>Sign Up to Continue!</Text>
+          </View>
+          <View style={{ marginVertical: 5 }}>
+            <CustomButton
+              title="Login with Facebook"
+              onPress={() => {}}
+              secondary
+            />
+          </View>
+          <View style={{ marginVertical: 5 }}>
+            <CustomButton
+              title="Login with Google"
+              onPress={() => {}}
+              secondary
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginVertical: 15,
+            }}
+          >
+            <View style={styles.line} />
+            <Text
+              style={{
+                fontFamily: FONTS.medium,
+                marginHorizontal: 10,
+                color: COLORS.gray4,
+              }}
+            >
+              OR
+            </Text>
+            <View style={styles.line} />
           </View>
           <View style={styles.form}>
+            <CustomInput
+              title="Your Name"
+              control={control}
+              name="Name"
+              pairInput
+              rules={{
+                required: "This field is required",
+                minLength: {
+                  value: 1,
+                  message: "Name is too short",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "Name is too long",
+                },
+              }}
+            />
             <View
               style={{
                 flexDirection: "row",
                 width: "100%",
-                gap: 30,
-                // marginVertical: 10,
+                gap: 15,
               }}
             >
               <CustomInput
-                title="First name"
+                title="+234"
                 control={control}
-                name="firstName"
+                name="countryCode"
+                type="countryCode"
                 pairInput
                 rules={{
-                  required: " First name is required",
-                  minLength: {
-                    value: 1,
-                    message: "Name is too short",
-                  },
-                  maxLength: {
-                    value: 40,
-                    message: "Name is too long",
+                  required: "Country code is required",
+                  pattern: {
+                    value: countryCodeRegex,
+                    message: "Country code is invalid",
                   },
                 }}
+                flex={0.3}
               />
               <CustomInput
-                title="Last name"
+                title="Phone Number"
                 control={control}
-                name="lastName"
+                name="phoneNumber"
                 pairInput
+                flex={1}
                 rules={{
-                  required: "First name is required",
-                  minLength: {
-                    value: 1,
-                    message: "Name is too short",
-                  },
-                  maxLength: {
-                    value: 40,
-                    message: "Name is too long",
+                  required: "Phone number is required",
+                  pattern: {
+                    value: phoneNumberRegex,
+                    message: "Phone number is invalid",
                   },
                 }}
               />
@@ -106,18 +152,6 @@ const SignUp = () => {
               }}
             />
             <CustomInput
-              title="Phone Number"
-              rules={{
-                required: "Phone number is required",
-                pattern: {
-                  value: phoneNumberRegex,
-                  message: "Phone number is invalid",
-                },
-              }}
-              control={control}
-              name="phoneNumber"
-            />
-            <CustomInput
               title="Password"
               control={control}
               name="password"
@@ -128,11 +162,13 @@ const SignUp = () => {
                   message: "Password is too short",
                 },
               }}
+              type="password"
             />
             <CustomInput
               title="Confirm Password"
               control={control}
               name="confirmPassword"
+              type="password"
               rules={{
                 required: "Password is required",
                 validate: (value) => value === pwd || "Password does not match",
@@ -162,15 +198,15 @@ const styles = StyleSheet.create({
   container: {
     width: wp("100%"),
     backgroundColor: COLORS.white,
+    flex: 1,
   },
   content: {
     paddingHorizontal: 24,
     paddingTop: hp("10%"),
-    alignItems: "center",
     minHeight: hp("100%"),
   },
   titleView: {
-    alignItems: "center",
+    alignItems: "flex-start",
     marginBottom: 40,
   },
   title: {
@@ -179,9 +215,11 @@ const styles = StyleSheet.create({
     letterSpacing: -0.408,
     marginBottom: 5,
   },
-  subtitle: {
-    fontFamily: FONTS.medium,
-    fontSize: wp(SIZES.medium),
+  line: {
+    flex: 1,
+    backgroundColor: COLORS.graySeparator1,
+    width: "100%",
+    height: 2,
   },
   form: {
     // backgroundColor: "red"
@@ -194,14 +232,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
     justifyContent: "center",
+    paddingBottom: 50,
   },
   haveAccountText: {
     fontFamily: FONTS.regular,
-    fontSize: wp(SIZES.medium),
+    fontSize: wp(SIZES.medium2),
   },
   loginText: {
     fontFamily: FONTS.medium,
-    fontSize: wp(SIZES.medium),
+    fontSize: wp(SIZES.medium2),
     textDecorationLine: "underline",
     textDecorationColor: COLORS.primary,
     color: COLORS.primary,

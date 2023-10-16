@@ -14,12 +14,18 @@ import SlideItem from "@/components/SlideItem";
 import { IMAGES } from "@const/images";
 import Pagination from "@comp/Pagination";
 import { ScrollView } from "react-native-gesture-handler";
+import CustomButton from "@/components/CustomButton";
+import { router } from "expo-router";
 
 const Welcome = () => {
   return (
     <View style={styles.container}>
       <Slider />
-      <StatusBar translucent={false} backgroundColor={COLORS.white} />
+      <View style={{flex: 0.2, top: 40}}>
+
+      <CustomButton title="Get Started" width="90%" onPress={()=> router.push("/login")}/>
+      </View>
+      {/* <StatusBar backgroundColor={COLORS.white} /> */}
     </View>
   );
 };
@@ -29,10 +35,7 @@ export default Welcome;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // height: hp("100%"),
-    // paddingTop: 60,
-    backgroundColor: COLORS.white,
-    // alignItems: "center",
-    // justifyContent: "center",
+    alignItems: "center",
+
   },
 });

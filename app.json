@@ -22,7 +22,8 @@
       }
     },
     "experiments": {
-      "tsconfigPaths": true
+      "tsconfigPaths": true,
+      "typedRoutes": true
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -1,5 +1,7 @@
 
 export const IMAGES = {
-  supplya1: require("@img/supplya1.png"),
-  supplya2: require("@img/supplya2.png")
+  onboarding1: require("@img/onboarding1.png"),
+  onboarding2: require("@img/onboarding2.png"),
+  onboarding3: require("@img/onboarding3.png"),
+  onboarding4: require("@img/onboarding4.png"),
 }

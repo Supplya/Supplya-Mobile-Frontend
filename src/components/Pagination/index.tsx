@@ -4,30 +4,9 @@ import { COLORS, FONTS, SIZES } from "@const/theme";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const Pagination = ({ data, scrollX, index, lastScreen, nextScreen }) => {
+const Pagination = ({ data, scrollX, index,}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.buttonView}>
-        <TouchableOpacity onPress={lastScreen}>
-          <Text style={styles.text}>Skip</Text>
-        </TouchableOpacity>
-        {index !== data.length - 1 && (
-          <TouchableOpacity onPress={nextScreen}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color: COLORS.primary,
-                  textDecorationLine: "underline",
-                  textDecorationColor: COLORS.primary,
-                },
-              ]}
-            >
-              Next
-            </Text>
-          </TouchableOpacity>
-        )}
-      </View>
       <View style={styles.dotView}>
         {data.map((dot, index) => {
           const inputRange = [
@@ -37,7 +16,7 @@ const Pagination = ({ data, scrollX, index, lastScreen, nextScreen }) => {
           ];
           const dotWidth = scrollX.interpolate({
             inputRange,
-            outputRange: [6, 24, 6],
+            outputRange: [8, 32, 8],
             extrapolate: "clamp",
           });
           const dotColor = scrollX.interpolate({
@@ -65,20 +44,12 @@ export default Pagination;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    position: "absolute",
-    bottom: 40,
     width: wp("100%"),
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 15,
     zIndex: 3,
-  },
-  buttonView: {
-    flexDirection: "row",
-    position: "absolute",
-    width: "100%",
-    justifyContent: "space-between",
   },
   dotView: {
     flexDirection: "row",
@@ -89,9 +60,9 @@ const styles = StyleSheet.create({
     fontSize: wp(SIZES.medium),
   },
   dot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
     backgroundColor: COLORS.primary,
   },
 });

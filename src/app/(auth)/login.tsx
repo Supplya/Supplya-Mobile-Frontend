@@ -36,14 +36,49 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "height" : "padding"}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView
+          contentContainerStyle={styles.content}
+          keyboardShouldPersistTaps={"handled"}
+        >
           <View style={styles.titleView}>
-            <Text style={styles.title}>Please Login</Text>
-            <Text style={styles.subtitle}>to your Supplya account</Text>
+            <Text style={styles.title}>Log In to Continue!</Text>
           </View>
-          <View style={{ flex: 1, width: "100%" }}>
+          <View style={{ marginVertical: 5 }}>
+            <CustomButton
+              title="Login with Facebook"
+              onPress={() => {}}
+              secondary
+            />
+          </View>
+          <View style={{ marginVertical: 5 }}>
+            <CustomButton
+              title="Login with Google"
+              onPress={() => {}}
+              secondary
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginVertical: 15,
+            }}
+          >
+            <View style={styles.line} />
+            <Text
+              style={{
+                fontFamily: FONTS.medium,
+                marginHorizontal: 10,
+                color: COLORS.gray4,
+              }}
+            >
+              OR
+            </Text>
+            <View style={styles.line} />
+          </View>
+          <View style={{ width: "100%" }}>
             <CustomInput
               title="Email / Phone"
               control={control}
@@ -52,7 +87,7 @@ const Login = () => {
                 required: "Email is required",
                 pattern: {
                   value: phoneOrEmailRegex,
-                  message: "Email  or Phone number is invalid",
+                  message: "Email or Phone number is invalid",
                 },
               }}
             />
@@ -60,6 +95,7 @@ const Login = () => {
             <CustomInput
               title="Password"
               control={control}
+              type="password"
               name="password"
               rules={{
                 required: "Password is required",
@@ -70,21 +106,18 @@ const Login = () => {
               }}
             />
           </View>
+          {/* Forgot Password button */}
+          <Link href="/forgotPassword" asChild>
+            <Pressable
+              style={{ alignSelf: "flex-end", marginBottom: 15 }}
+            >
+              <Text style={styles.pressable}>Forgot your password?</Text>
+            </Pressable>
+          </Link>
+          <CustomButton title="Login" onPress={handleSubmit(handleSignUp)} />
           <View
-            style={{
-              alignItems: "center",
-              marginBottom: hp("10%"),
-            }}
+            style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 50 }}
           >
-            <CustomButton title="Login" onPress={handleSubmit(handleSignUp)} />
-            <View style={styles.row}>
-              <Text style={styles.text}>Forgot your password?</Text>
-              <Link href="/forgotPassword" asChild>
-                <Pressable style={{ margin: 5 }}>
-                  <Text style={styles.pressable}>Reset password</Text>
-                </Pressable>
-              </Link>
-            </View>
             <View style={styles.row}>
               <Text style={styles.text}>Don't have an account yet?</Text>
               <Link href="/signup" asChild>
@@ -105,7 +138,7 @@ const Login = () => {
             </View>
           </View>
         </ScrollView>
-        <StatusBar translucent={false} backgroundColor={COLORS.white} />
+        <StatusBar backgroundColor={COLORS.white} />
       </KeyboardAvoidingView>
     </View>
   );
@@ -117,15 +150,16 @@ const styles = StyleSheet.create({
   container: {
     width: wp("100%"),
     backgroundColor: COLORS.white,
+    flex: 1,
   },
   content: {
     paddingHorizontal: 24,
     paddingTop: hp("10%"),
-    alignItems: "center",
+    // alignItems: "center",
     minHeight: hp("100%"),
   },
   titleView: {
-    alignItems: "center",
+    alignItems: "flex-start",
     marginBottom: 40,
   },
   title: {
@@ -134,9 +168,11 @@ const styles = StyleSheet.create({
     letterSpacing: -0.408,
     marginBottom: 5,
   },
-  subtitle: {
-    fontFamily: FONTS.medium,
-    fontSize: wp(SIZES.medium),
+  line: {
+    flex: 1,
+    backgroundColor: COLORS.graySeparator1,
+    width: "100%",
+    height: 2,
   },
   row: {
     flexDirection: "row",
@@ -146,11 +182,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONTS.regular,
-    fontSize: wp(SIZES.medium),
+    fontSize: wp(SIZES.medium2),
   },
   pressable: {
     fontFamily: FONTS.medium,
-    fontSize: wp(SIZES.medium),
-    color: COLORS.dark,
+    fontSize: wp(SIZES.medium2),
+    color: COLORS.primary,
   },
 });
