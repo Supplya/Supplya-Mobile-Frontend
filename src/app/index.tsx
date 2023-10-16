@@ -32,7 +32,7 @@ export default function Page() {
           <Text>Welcome</Text>
         </TouchableOpacity>
       </Link>
-      <Link href="/(home)/shop" asChild>
+      <Link href="/home" asChild>
         <TouchableOpacity
           style={styles.button}
         >

@@ -22,7 +22,6 @@ export default function RootLayout() {
     nunitoExtraBold: require("assets/fonts/Nunito-ExtraBold.ttf"),
     nunitoBlack: require("assets/fonts/Nunito-Black.ttf"),
   });
-
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
       await SplashScreen.hideAsync();
@@ -35,7 +34,13 @@ export default function RootLayout() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack
+        screenOptions={{
+          headerShadowVisible: false,
+          headerTitle: "",
+          headerShown: false,
+        }}
+      />
     </View>
   );
 }

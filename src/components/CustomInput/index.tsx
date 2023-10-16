@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   error: {
     fontFamily: FONTS.regular,
-    fontSize: wp(SIZES.medium),
+    fontSize: wp(SIZES.small),
     color: COLORS.orange,
   },
 });
