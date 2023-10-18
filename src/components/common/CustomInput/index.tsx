@@ -62,6 +62,8 @@ const CustomInput = ({
                       placeholderTextColor={COLORS.gray5}
                       style={styles.input}
                       onChangeText={onChange}
+                      autoCapitalize="none"
+                      keyboardType={!isVisible ? "default" : "visible-password"}
                       secureTextEntry={!isVisible}
                       onBlur={() => {
                         setIsFocused(false);
@@ -91,7 +93,9 @@ const CustomInput = ({
                     placeholderTextColor={COLORS.gray5}
                     style={styles.input}
                     maxLength={4}
+                    keyboardType="phone-pad"
                     onChangeText={onChange}
+                    textContentType="telephoneNumber"
                     secureTextEntry={secureTextEntry}
                     onBlur={() => {
                       setIsFocused(false);
@@ -102,24 +106,57 @@ const CustomInput = ({
                     }}
                     value={value}
                   />
+                ) : type === "phoneNumber" ? (
+                  <TextInput
+                    placeholder={title}
+                    placeholderTextColor={COLORS.gray5}
+                    style={styles.input}
+                    maxLength={11}
+                    keyboardType="phone-pad"
+                    onChangeText={onChange}
+                    textContentType="telephoneNumber"
+                    secureTextEntry={secureTextEntry}
+                    onBlur={() => {
+                      setIsFocused(false);
+                      onBlur();
+                    }}
+                    onFocus={() => {
+                      setIsFocused(true);
+                    }}
+                    value={value}
+                  />
+                ) : type === "email" ? (
+                  <TextInput
+                    placeholder={title}
+                    placeholderTextColor={COLORS.gray5}
+                    style={styles.input}
+                    onChangeText={onChange}
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
+                    onBlur={() => {
+                      setIsFocused(false);
+                      onBlur();
+                    }}
+                    onFocus={() => {
+                      setIsFocused(true);
+                    }}
+                    value={value}
+                  />
                 ) : (
-                  <>
-                    <TextInput
-                      placeholder={title}
-                      placeholderTextColor={COLORS.gray5}
-                      style={styles.input}
-                      onChangeText={onChange}
-                      secureTextEntry={secureTextEntry}
-                      onBlur={() => {
-                        setIsFocused(false);
-                        onBlur();
-                      }}
-                      onFocus={() => {
-                        setIsFocused(true);
-                      }}
-                      value={value}
-                    />
-                  </>
+                  <TextInput
+                    placeholder={title}
+                    placeholderTextColor={COLORS.gray5}
+                    style={styles.input}
+                    onChangeText={onChange}
+                    onBlur={() => {
+                      setIsFocused(false);
+                      onBlur();
+                    }}
+                    onFocus={() => {
+                      setIsFocused(true);
+                    }}
+                    value={value}
+                  />
                 )}
               </View>
               {error && error?.ref.name !== "countryCode" && (

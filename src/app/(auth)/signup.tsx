@@ -14,17 +14,18 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { COLORS, FONTS, SIZES } from "@const/theme";
-import CustomInput from "@comp/CustomInput";
+import CustomInput from "@/components/common/CustomInput";
 import { StatusBar } from "expo-status-bar";
 import { useForm } from "react-hook-form";
-import CustomButton from "@comp/CustomButton";
+import CustomButton from "@/components/common/CustomButton";
 import { Link, router } from "expo-router";
-import Pagination from "@/components/Pagination";
+import Pagination from "@/components/onboarding/Pagination";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const phoneNumberRegex = /^\d{10}|\d{11}$/;  /^(?:\+\d{13}|\d{11})$/
+const phoneNumberRegex = /^\d{10}|\d{11}$/;
+/^(?:\+\d{13}|\d{11})$/;
 
 const countryCodeRegex = /^\+\d{1,4}\s\d{1,}$/;
 
@@ -128,6 +129,7 @@ const SignUp = () => {
                 title="Phone Number"
                 control={control}
                 name="phoneNumber"
+                type="phoneNumber"
                 pairInput
                 flex={1}
                 rules={{

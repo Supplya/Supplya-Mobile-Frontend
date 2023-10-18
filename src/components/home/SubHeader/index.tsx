@@ -3,7 +3,7 @@ import React from "react";
 import { COLORS, FONTS, SIZES } from "@const/theme";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-const SubHeader = ({ title}) => {
+const SubHeader = ({ title, onPress }) => {
   return (
     <View style={styles.container}>
       <Text
@@ -14,7 +14,7 @@ const SubHeader = ({ title}) => {
       >
         {title}
       </Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Text
           style={{
             fontFamily: FONTS.bold,

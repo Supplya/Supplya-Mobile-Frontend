@@ -13,12 +13,16 @@ import Meat from "../Meat";
 import { COLORS, FONTS, SIZES } from "@const/theme";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import SubHeader from "../SubHeader";
+import { router } from "expo-router";
 
 const Categories = () => {
   const data = ["Vegetables", "Fruits", "Milks & Egg", "Meat"];
   return (
     <View>
-      <SubHeader title="Categories" />
+      <SubHeader
+        title="Categories"
+        onPress={() => router.push("/categories")}
+      />
       <FlatList
         data={data}
         contentContainerStyle={{}}
@@ -27,7 +31,9 @@ const Categories = () => {
             <View style={{ width: wp("25%") }}>
               <TouchableOpacity
                 style={{ alignItems: "center" }}
-                onPress={() => {}}
+                onPress={() =>
+                  router.push({pathname: "/goods", params: {type: item}})
+                }
               >
                 <View
                   style={{

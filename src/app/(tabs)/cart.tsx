@@ -1,15 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Profile = () => {
+const Cart = () => {
+  console.log("Cart screen rendered")
   return (
     <View style={styles.container}>
-      <Text>Wallet</Text>
+      <Text>Sell</Text>
     </View>
   );
 };
 
-export default Profile;
+export default Cart;
 
 const styles = StyleSheet.create({
   container: {

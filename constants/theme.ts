@@ -41,8 +41,13 @@ export const COLORS = {
   purple: "#9B81E5",
   blue: "#03B0A9",
   red: "#C35D5B",
+  systemRed: "#FF3B30",
   lightGreen: "#E4F3EA",
   lightOrange: "#FFECE8",
   lightYellow: "#FFF6E4",
   lightPurple: "#F1EDFC",
+  labelDark: "#22292E",
+  labelGray1: "#8A8A8E",
+  labelGray2: "#C5C5C7",
+  labelWhite: "#F8F8F8",
 };

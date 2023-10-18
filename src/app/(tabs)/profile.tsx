@@ -1,15 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Favorite = () => {
+const Profile = () => {
+  console.log("Profile screen rendered")
   return (
     <View style={styles.container}>
-      <Text>More</Text>
+      <Text>Wallet</Text>
     </View>
   );
 };
 
-export default Favorite;
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {

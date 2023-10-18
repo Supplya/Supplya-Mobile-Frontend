@@ -9,21 +9,24 @@ import {
 } from "react-native-responsive-screen";
 import { COLORS, FONTS, SIZES } from "@const/theme";
 import { StatusBar } from "expo-status-bar";
-import Slider from "@comp/Slider";
-import SlideItem from "@/components/SlideItem";
+import Slider from "@/components/onboarding/Slider";
+import SlideItem from "@/components/onboarding/SlideItem";
 import { IMAGES } from "@const/images";
-import Pagination from "@comp/Pagination";
+import Pagination from "@/components/onboarding/Pagination";
 import { ScrollView } from "react-native-gesture-handler";
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/common/CustomButton";
 import { router } from "expo-router";
 
 const Welcome = () => {
   return (
     <View style={styles.container}>
       <Slider />
-      <View style={{flex: 0.2, top: 40}}>
-
-      <CustomButton title="Get Started" width="90%" onPress={()=> router.push("/login")}/>
+      <View style={{ flex: 0.2, top: 40 }}>
+        <CustomButton
+          title="Get Started"
+          width="90%"
+          onPress={() => router.push("/login")}
+        />
       </View>
       {/* <StatusBar backgroundColor={COLORS.white} /> */}
     </View>

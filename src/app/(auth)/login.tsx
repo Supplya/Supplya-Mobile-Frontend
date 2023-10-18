@@ -14,10 +14,10 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { COLORS, FONTS, SIZES } from "@const/theme";
-import CustomInput from "@comp/CustomInput";
+import CustomInput from "@/components/common/CustomInput";
 import { StatusBar } from "expo-status-bar";
 import { useForm } from "react-hook-form";
-import CustomButton from "@comp/CustomButton";
+import CustomButton from "@/components/common/CustomButton";
 import { Link, router } from "expo-router";
 
 const phoneOrEmailRegex =
@@ -108,9 +108,7 @@ const Login = () => {
           </View>
           {/* Forgot Password button */}
           <Link href="/forgotPassword" asChild>
-            <Pressable
-              style={{ alignSelf: "flex-end", marginBottom: 15 }}
-            >
+            <Pressable style={{ alignSelf: "flex-end", marginBottom: 15 }}>
               <Text style={styles.pressable}>Forgot your password?</Text>
             </Pressable>
           </Link>

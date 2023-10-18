@@ -4,13 +4,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { COLORS, FONTS, SIZES } from "@const/theme";
 
-const SpecialDealsCard = () => {
+const SpecialDealsCard = ({ width = 70 }) => {
   return (
     <TouchableOpacity style={styles.container}>
       <LinearGradient
         // Button Linear Gradient
         colors={[COLORS.systemGray, "#22292E"]}
-        style={styles.background}
+        style={[styles.background, { width: wp(width) }]}
       >
         <Text style={styles.title}>Fresh Fruit for You</Text>
         <Text style={styles.subtitle}>
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   background: {
-    width: wp(70),
     aspectRatio: 253 / 136,
     justifyContent: "flex-end",
     padding: 20,

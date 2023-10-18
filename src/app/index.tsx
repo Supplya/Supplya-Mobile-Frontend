@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
-import Pagination from "@/components/Pagination";
+import Pagination from "@/components/onboarding/Pagination";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Page() {
@@ -12,30 +12,22 @@ export default function Page() {
         </TouchableOpacity>
       </Link>
       <Link href="/signup" asChild>
-        <TouchableOpacity
-          style={styles.button}
-        >
+        <TouchableOpacity style={styles.button}>
           <Text>Sign up</Text>
         </TouchableOpacity>
       </Link>
       <Link href="/forgotPassword" asChild>
-        <TouchableOpacity
-          style={styles.button}
-        >
+        <TouchableOpacity style={styles.button}>
           <Text>Forgot Password</Text>
         </TouchableOpacity>
       </Link>
       <Link href="/welcome" asChild>
-        <TouchableOpacity
-          style={styles.button}
-        >
+        <TouchableOpacity style={styles.button}>
           <Text>Welcome</Text>
         </TouchableOpacity>
       </Link>
       <Link href="/home" asChild>
-        <TouchableOpacity
-          style={styles.button}
-        >
+        <TouchableOpacity style={styles.button}>
           <Text>Home</Text>
         </TouchableOpacity>
       </Link>

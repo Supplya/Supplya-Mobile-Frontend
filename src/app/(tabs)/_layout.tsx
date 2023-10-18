@@ -8,7 +8,7 @@ import { Tabs } from "expo-router";
 import { SafeAreaView, Text } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-export default function HomeLayout() {
+export default function TabLayout() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Tabs

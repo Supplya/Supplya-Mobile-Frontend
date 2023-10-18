@@ -13,15 +13,18 @@ const Slider = () => {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    scrollRef.current?.scrollToIndex({index, animated: true, viewPosition: 0.5 })
-  }, [index])
-  
+    scrollRef.current?.scrollToIndex({
+      index,
+      animated: true,
+      viewPosition: 0.5,
+    });
+  }, [index]);
 
   const incrementIndex = () => {
     if (index === welcomeData.length - 1) return;
     setIndex(index + 1);
   };
-  
+
   const skipToLastIndex = () => {
     if (index === welcomeData.length - 1) return;
     setIndex(welcomeData.length - 1);
@@ -36,7 +39,7 @@ const Slider = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <FlatList
           data={welcomeData}
           renderItem={({ item, index }) => (
@@ -60,11 +63,7 @@ const Slider = () => {
           scrollEventThrottle={20}
         />
       </View>
-      <Pagination
-        data={welcomeData}
-        scrollX={scrollX}
-        index={index}
-      />
+      <Pagination data={welcomeData} scrollX={scrollX} index={index} />
     </View>
   );
 };
