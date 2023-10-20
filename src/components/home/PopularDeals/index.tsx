@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import SubHeader from "../SubHeader";
 import PopularDealsCard from "../PopularDealsCard";
 import { router } from "expo-router";
+import styles from "./populardeals.style";
 
 const PopularDeals = () => {
   const data = ["0", "1", "2", "3"];
@@ -33,12 +34,3 @@ const PopularDeals = () => {
 };
 
 export default PopularDeals;
-
-const styles = StyleSheet.create({
-  list: {
-    flexDirection: "row",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    gap: 10,
-  },
-});

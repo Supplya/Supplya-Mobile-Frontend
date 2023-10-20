@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
   fill: {
     height: 10,
     width: wp(100),
-    backgroundColor: COLORS.white
-  }
+    backgroundColor: COLORS.white,
+  },
 });

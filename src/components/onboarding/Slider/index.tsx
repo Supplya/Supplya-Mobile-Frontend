@@ -38,7 +38,7 @@ const Slider = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 0.8 }}>
       <View style={{ flex: 1 }}>
         <FlatList
           data={welcomeData}
@@ -69,9 +69,3 @@ const Slider = () => {
 };
 
 export default Slider;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 0.8,
-  },
-});

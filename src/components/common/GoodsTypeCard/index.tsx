@@ -1,10 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, {memo} from "react";
-import { COLORS, FONTS, SIZES } from "@const/theme";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { Text, TouchableOpacity } from "react-native";
+import React from "react";
+import { COLORS } from "@const/theme";
+import styles from "./goodstypecard.style";
 
 const GoodsTypeCard = ({ type, selected, setSelected, index }) => {
-  // console.log("Goods type rendered")
   return (
     <TouchableOpacity
       style={[
@@ -31,19 +30,3 @@ const GoodsTypeCard = ({ type, selected, setSelected, index }) => {
 };
 
 export default GoodsTypeCard;
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-    height: wp(SIZES.small + 5),
-    minWidth: 80,
-  },
-  text: {
-    fontFamily: FONTS.regular,
-    fontSize: wp(SIZES.small),
-  },
-});

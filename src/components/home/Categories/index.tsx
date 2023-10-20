@@ -8,17 +8,19 @@ import {
 import React from "react";
 import Vegetables from "../Vegetables";
 import Fruits from "../Fruits";
-import MilksandEgg from "../MilksandEgg";
+import MilksandEgg from "../MilkandEgg";
 import Meat from "../Meat";
 import { COLORS, FONTS, SIZES } from "@const/theme";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import SubHeader from "../SubHeader";
 import { router } from "expo-router";
+import { globalStyles } from "styles/global";
+import styles from "./categories.style";
 
 const Categories = () => {
   const data = ["Vegetables", "Fruits", "Milks & Egg", "Meat"];
   return (
-    <View>
+    <>
       <SubHeader
         title="Categories"
         onPress={() => router.push("/categories")}
@@ -32,26 +34,23 @@ const Categories = () => {
               <TouchableOpacity
                 style={{ alignItems: "center" }}
                 onPress={() =>
-                  router.push({pathname: "/goods", params: {type: item}})
+                  router.push({ pathname: "/goods", params: { type: item } })
                 }
               >
                 <View
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 24,
-                    backgroundColor:
-                      item === "Vegetables"
-                        ? COLORS.lightGreen
-                        : item === "Fruits"
-                        ? COLORS.lightOrange
-                        : item === "Milks & Egg"
-                        ? COLORS.lightYellow
-                        : COLORS.lightPurple,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: 5,
-                  }}
+                  style={[
+                    styles.iconView,
+                    {
+                      backgroundColor:
+                        item === "Vegetables"
+                          ? COLORS.lightGreen
+                          : item === "Fruits"
+                          ? COLORS.lightOrange
+                          : item === "Milks & Egg"
+                          ? COLORS.lightYellow
+                          : COLORS.lightPurple,
+                    },
+                  ]}
                 >
                   {item === "Vegetables" ? (
                     <Vegetables />
@@ -64,11 +63,12 @@ const Categories = () => {
                   ) : null}
                 </View>
                 <Text
-                  style={{
-                    fontFamily: FONTS.regular,
-                    fontSize: wp(SIZES.small),
-                    color: COLORS.dark2,
-                  }}
+                  style={[
+                    globalStyles.fontRegular14,
+                    {
+                      color: COLORS.dark2,
+                    },
+                  ]}
                 >
                   {item}
                 </Text>
@@ -78,10 +78,8 @@ const Categories = () => {
         }}
         horizontal
       />
-    </View>
+    </>
   );
 };
 
 export default Categories;
-
-const styles = StyleSheet.create({});

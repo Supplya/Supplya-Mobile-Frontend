@@ -1,10 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Svg, Path } from "react-native-svg";
 import React from "react";
 
 const Search = ({ style = {} }) => {
   return (
-    <TouchableOpacity style={style}>
+    <TouchableOpacity>
       <Svg width={20} height={20} fill="none">
         <Path
           fill="#54B175"
@@ -16,5 +16,3 @@ const Search = ({ style = {} }) => {
 };
 
 export default Search;
-
-const styles = StyleSheet.create({});

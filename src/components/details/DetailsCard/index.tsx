@@ -1,35 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import React from "react";
 import DiscountTag from "@/components/common/DiscountTag";
 import Divider from "@/components/common/Divider";
+import styles from "./detailscard.style";
 
 const DetailsCard = () => {
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.leftSide}>
         <DiscountTag />
-        <Text>Dragon Fruit</Text>
-        <Text>200gr</Text>
+        <Text style={styles.name}>Dragon Fruit</Text>
+        <Text style={styles.smallGrayText}>200gr</Text>
       </View>
-      <View>
-        <>
-          <Text>$90</Text>
-          <Divider />
-        </>
-        <Text></Text>
+      <View style={styles.rightSide}>
+        <Divider>
+          <Text style={styles.smallGrayText}>$90</Text>
+        </Divider>
+        <Text style={styles.price}>$45</Text>
       </View>
     </View>
   );
 };
 
 export default DetailsCard;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingVertical: 25,
-  },
-});

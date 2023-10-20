@@ -3,6 +3,7 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { COLORS } from "@const/theme";
+import styles from "./backbutton.style";
 
 const BackButton = ({ onPress }) => {
   return (
@@ -13,10 +14,3 @@ const BackButton = ({ onPress }) => {
 };
 
 export default BackButton;
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});

@@ -1,8 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { COLORS, FONTS, SIZES } from "@const/theme";
+import { COLORS } from "@const/theme";
+import styles from "./specialdealscard";
 
 const SpecialDealsCard = ({ width = 70 }) => {
   return (
@@ -22,26 +23,3 @@ const SpecialDealsCard = ({ width = 70 }) => {
 };
 
 export default SpecialDealsCard;
-
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 8,
-    overflow: "hidden",
-  },
-  background: {
-    aspectRatio: 253 / 136,
-    justifyContent: "flex-end",
-    padding: 20,
-  },
-  title: {
-    fontFamily: FONTS.bold,
-    fontSize: wp(SIZES.medium3),
-    color: COLORS.white,
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontFamily: FONTS.regular,
-    fontSize: wp(SIZES.small),
-    color: COLORS.white,
-  },
-});

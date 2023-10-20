@@ -1,32 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text } from "react-native";
 import React from "react";
-import { COLORS, FONTS, SIZES } from "@const/theme";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import styles from "./headertitle.style";
 
 const HeaderTitle = () => {
   return (
-    <View>
-      <Text
-        style={{
-          fontFamily: FONTS.bold,
-          fontSize: wp(SIZES.medium2),
-          color: COLORS.gray,
-          marginBottom: 5,
-        }}
-      >
-        Planet Namex 989
-      </Text>
-      <Text style={{
-        fontFamily: FONTS.regular,
-        fontSize: wp(SIZES.extraSmall),
-        color: COLORS.gray
-      }}>
-        Norristown, Pennsylvannia, 19403
-      </Text>
-    </View>
+    <>
+      <Text style={styles.title}>Planet Namex 989</Text>
+      <Text style={styles.subtitle}>Norristown, Pennsylvannia, 19403</Text>
+    </>
   );
 };
 
 export default HeaderTitle;
-
-const styles = StyleSheet.create({});
