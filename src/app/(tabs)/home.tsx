@@ -1,14 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { COLORS } from "@const/theme";
-import { Tabs, useFocusEffect } from "expo-router";
-import HeaderTitle from "@/components/header/HeaderTitle";
-import Search from "@/components/common/Search";
 import Categories from "@/components/home/Categories";
 import SpecialDeals from "@/components/home/SpecialDeals";
 import PopularDeals from "@/components/home/PopularDeals";
@@ -18,14 +12,6 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Tabs.Screen
-        options={{
-          headerRight: () => <Search style={{ marginRight: 20 }} />,
-          headerTitle: () => <HeaderTitle />,
-          headerStyle: { backgroundColor: COLORS.offWhite },
-          headerShadowVisible: false,
-        }}
-      />
       <ScrollView contentContainerStyle={{ paddingTop: 20, paddingBottom: 60 }}>
         <Categories />
         <SpecialDeals />

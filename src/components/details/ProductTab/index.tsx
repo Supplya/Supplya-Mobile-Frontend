@@ -21,7 +21,10 @@ const ProductTab = ({ activeTab, setActiveTab, tabs }) => {
             onPress={() => setActiveTab(title)}
             key={index.toString()}
           >
-            <Text style={[globalStyles.fontSemiBold14, styles.text]}>
+            <Text
+              style={[globalStyles.fontSemiBold14, styles.text]}
+              key={index.toString()}
+            >
               {title}
             </Text>
           </TouchableOpacity>

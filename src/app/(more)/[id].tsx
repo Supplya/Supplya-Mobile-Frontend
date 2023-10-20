@@ -20,7 +20,7 @@ const Details = () => {
 
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  const handleActiveTab = (tab) => {
+  const handleActiveTab = (tab: string) => {
     setActiveTab(tab);
   };
 

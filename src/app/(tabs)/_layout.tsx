@@ -1,3 +1,5 @@
+import Search from "@/components/common/Search";
+import HeaderTitle from "@/components/header/HeaderTitle";
 import CartIcon from "@/components/tab/CartIcon";
 import CustomTabBar from "@/components/tab/CustomTabBar";
 import FavoriteIcon from "@/components/tab/FavoriteIcon";
@@ -50,7 +52,15 @@ export default function TabLayout() {
         })}
         tabBar={(props) => <CustomTabBar {...props} />}
       >
-        <Tabs.Screen name="home" />
+        <Tabs.Screen
+          name="home"
+          options={{
+            headerRight: () => <Search style={{ marginRight: 20 }} />,
+            headerTitle: () => <HeaderTitle />,
+            headerStyle: { backgroundColor: COLORS.offWhite },
+            headerShadowVisible: false,
+          }}
+        />
         <Tabs.Screen name="favorite" />
         <Tabs.Screen name="cart" />
         <Tabs.Screen name="profile" />
