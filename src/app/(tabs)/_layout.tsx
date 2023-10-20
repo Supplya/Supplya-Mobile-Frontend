@@ -5,7 +5,7 @@ import HomeIcon from "@/components/tab/HomeIcon";
 import ProfileIcon from "@/components/tab/ProfileIcon";
 import { COLORS, FONTS, SIZES } from "@const/theme";
 import { Tabs } from "expo-router";
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 export default function TabLayout() {

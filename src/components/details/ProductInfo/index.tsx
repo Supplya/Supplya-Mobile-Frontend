@@ -2,9 +2,9 @@ import { Text, View } from "react-native";
 import React from "react";
 import DiscountTag from "@/components/common/DiscountTag";
 import Divider from "@/components/common/Divider";
-import styles from "./detailscard.style";
+import styles from "./productinfo.style";
 
-const DetailsCard = () => {
+const ProductInfo = () => {
   return (
     <View style={styles.container}>
       <View style={styles.leftSide}>
@@ -22,4 +22,4 @@ const DetailsCard = () => {
   );
 };
 
-export default DetailsCard;
+export default ProductInfo;

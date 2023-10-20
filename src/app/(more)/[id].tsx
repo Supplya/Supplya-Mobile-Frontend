@@ -1,21 +1,44 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Stack } from "expo-router";
 import { COLORS } from "@const/theme";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
-import DetailsCard from "@comp/details/DetailsCard";
+import DetailsCard from "@/components/details/ProductInfo";
 import QuantityPicker from "@comp/common/QuantityPicker";
 import { globalStyles } from "styles/global";
 import { ScrollView } from "react-native-gesture-handler";
-import ProductDetails from "@/components/details/ProductDetails";
+import ProductTab from "@/components/details/ProductTab";
+import ReviewTab from "@/components/details/ReviewTab";
+import DetailsTab from "@/components/details/DetailsTab";
+import Footer from "@/components/details/Footer";
 
 const Details = () => {
+  const tabs = ["Reviews", "Details"];
+
+  const [activeTab, setActiveTab] = useState(tabs[0]);
+
+  const handleActiveTab = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const displayTabContent = () => {
+    switch (activeTab) {
+      case "Reviews":
+        return <ReviewTab />;
+      case "Details":
+        return <DetailsTab />;
+      default:
+        return <Text>Something went wrong</Text>;
+    }
+  };
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+      <ScrollView
+        contentContainerStyle={{ alignItems: "center", paddingBottom: hp(7.4) }}
+      >
         <Stack.Screen
           options={{
             title: "Dragon Fruit",
@@ -32,8 +55,14 @@ const Details = () => {
           </Text>
           <QuantityPicker />
         </View>
-        <ProductDetails />
+        <ProductTab
+          activeTab={activeTab}
+          setActiveTab={handleActiveTab}
+          tabs={tabs}
+        />
+        {displayTabContent()}
       </ScrollView>
+      <Footer />
     </View>
   );
 };

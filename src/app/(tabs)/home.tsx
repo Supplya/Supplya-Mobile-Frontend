@@ -6,7 +6,7 @@ import {
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import { COLORS } from "@const/theme";
-import { Tabs } from "expo-router";
+import { Tabs, useFocusEffect } from "expo-router";
 import HeaderTitle from "@/components/header/HeaderTitle";
 import Search from "@/components/common/Search";
 import Categories from "@/components/home/Categories";
@@ -15,6 +15,7 @@ import PopularDeals from "@/components/home/PopularDeals";
 
 const Home = () => {
   console.log("Home screen rendered");
+
   return (
     <View style={styles.container}>
       <Tabs.Screen
@@ -25,7 +26,7 @@ const Home = () => {
           headerShadowVisible: false,
         }}
       />
-      <ScrollView contentContainerStyle={{ paddingTop: 20 }}>
+      <ScrollView contentContainerStyle={{ paddingTop: 20, paddingBottom: 60 }}>
         <Categories />
         <SpecialDeals />
         <PopularDeals />

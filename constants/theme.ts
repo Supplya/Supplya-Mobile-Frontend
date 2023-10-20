@@ -50,4 +50,6 @@ export const COLORS = {
   labelGray1: "#8A8A8E",
   labelGray2: "#C5C5C7",
   labelWhite: "#F8F8F8",
+  tertiaryGray: "#EFEFF0",
+  separatorGray: "#C6C6C8",
 };

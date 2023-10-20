@@ -1,12 +1,13 @@
 import { View, Text } from "react-native";
 import React from "react";
+import ReviewCard from "../ReviewCard";
 
-const ProductDetails = () => {
+const ReviewTab = () => {
   return (
     <View>
-      <Text>ProductDetails</Text>
+      <ReviewCard />
     </View>
   );
 };
 
-export default ProductDetails;
+export default ReviewTab;

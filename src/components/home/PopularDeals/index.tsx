@@ -2,18 +2,20 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import SubHeader from "../SubHeader";
 import PopularDealsCard from "../PopularDealsCard";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import styles from "./populardeals.style";
 
 const PopularDeals = () => {
   const data = ["0", "1", "2", "3"];
   const [selected, setSelected] = useState(undefined);
 
+  useFocusEffect(() => setSelected(undefined));
+
   function handleSelected(index: number) {
     setSelected(index);
   }
   return (
-    <View>
+    <>
       <SubHeader
         title="Popular Deals"
         onPress={() => router.push("/popular-deals")}
@@ -29,7 +31,7 @@ const PopularDeals = () => {
           />
         ))}
       </View>
-    </View>
+    </>
   );
 };
 

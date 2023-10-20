@@ -3,6 +3,22 @@ import { StyleSheet } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 export const globalStyles = StyleSheet.create({
+  fontRegular14: {
+    fontFamily: FONTS.regular,
+    fontSize: wp(SIZES.small),
+  },
+  fontRegular16: {
+    fontFamily: FONTS.regular,
+    fontSize: wp(SIZES.medium),
+  },
+  fontSemiBold14: {
+    fontFamily: FONTS.semiBold,
+    fontSize: wp(SIZES.small),
+  },
+  fontSemiBold17: {
+    fontFamily: FONTS.semiBold,
+    fontSize: wp(SIZES.medium2),
+  },
   fontBold20: {
     fontFamily: FONTS.bold,
     fontSize: wp(SIZES.medium3),
@@ -10,9 +26,5 @@ export const globalStyles = StyleSheet.create({
   fontBold16: {
     fontFamily: FONTS.bold,
     fontSize: wp(SIZES.medium),
-  },
-  fontRegular14: {
-    fontFamily: FONTS.regular,
-    fontSize: wp(SIZES.small),
   },
 });

@@ -4,7 +4,7 @@ import React from "react";
 
 const Search = ({ style = {} }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={style}>
       <Svg width={20} height={20} fill="none">
         <Path
           fill="#54B175"

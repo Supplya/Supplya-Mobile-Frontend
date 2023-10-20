@@ -7,7 +7,10 @@ import { router } from "expo-router";
 const SpecialDeals = () => {
   return (
     <View style={{ marginVertical: 15 }}>
-      <SubHeader title="Special Deals for You" onPress={() => router.push("/special-deals")}/>
+      <SubHeader
+        title="Special Deals for You"
+        onPress={() => router.push("/special-deals")}
+      />
       <FlatList
         data={[0, 1]}
         contentContainerStyle={{ paddingHorizontal: 20, gap: 20 }}
@@ -20,5 +23,3 @@ const SpecialDeals = () => {
 };
 
 export default SpecialDeals;
-
-const styles = StyleSheet.create({});

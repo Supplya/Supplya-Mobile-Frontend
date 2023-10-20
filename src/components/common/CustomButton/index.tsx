@@ -1,21 +1,33 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, DimensionValue } from "react-native";
 import React from "react";
-import { COLORS, FONTS, SIZES } from "@const/theme";
+import { COLORS } from "@const/theme";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import styles from "./custombutton.style";
 
 type CustomButtonProps = {
   title: string;
-  width?: string | number;
+  staticWidth?: string | number;
   onPress: () => void;
   secondary?: boolean;
+  dynamicWidth?: DimensionValue;
 };
 
-const CustomButton = ({ title, secondary, onPress }: CustomButtonProps) => {
+const CustomButton = ({
+  title,
+  secondary,
+  onPress,
+  staticWidth,
+  dynamicWidth,
+}: CustomButtonProps) => {
   return (
     <TouchableOpacity
       style={[
         styles.container,
-        { backgroundColor: secondary ? COLORS.lightGreen : COLORS.primary },
+        {
+          backgroundColor: secondary ? COLORS.lightGreen : COLORS.primary,
+        },
+        dynamicWidth && { width: dynamicWidth },
+        staticWidth && { width: wp(staticWidth) },
       ]}
       onPress={onPress}
     >
@@ -36,20 +48,3 @@ const CustomButton = ({ title, secondary, onPress }: CustomButtonProps) => {
 };
 
 export default CustomButton;
-
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 17,
-    width: wp("90%"),
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 5,
-    backgroundColor: COLORS.primary,
-    borderRadius: 8,
-  },
-  text: {
-    fontFamily: FONTS.semiBold,
-    fontSize: wp(SIZES.medium2),
-    color: COLORS.white,
-  },
-});

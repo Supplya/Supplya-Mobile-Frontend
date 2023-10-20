@@ -3,8 +3,9 @@ import React from "react";
 import { COLORS, FONTS, SIZES } from "@const/theme";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import styles from "./pagination.style";
 
-const Pagination = ({ data, scrollX, index,}) => {
+const Pagination = ({ data, scrollX, index }) => {
   return (
     <View style={styles.container}>
       <View style={styles.dotView}>
@@ -40,29 +41,3 @@ const Pagination = ({ data, scrollX, index,}) => {
 };
 
 export default Pagination;
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    width: wp("100%"),
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 15,
-    zIndex: 3,
-  },
-  dotView: {
-    flexDirection: "row",
-    gap: 5,
-  },
-  text: {
-    fontFamily: FONTS.medium,
-    fontSize: wp(SIZES.medium),
-  },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: COLORS.primary,
-  },
-});

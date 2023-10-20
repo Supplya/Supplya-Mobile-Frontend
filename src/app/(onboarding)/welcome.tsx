@@ -24,7 +24,7 @@ const Welcome = () => {
       <View style={{ flex: 0.2, top: 40 }}>
         <CustomButton
           title="Get Started"
-          width="90%"
+          staticWidth="90%"
           onPress={() => router.push("/login")}
         />
       </View>

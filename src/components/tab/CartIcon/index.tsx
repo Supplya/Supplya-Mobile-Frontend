@@ -1,3 +1,4 @@
+import { COLORS } from "@const/theme";
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 const CartIcon = ({ color }) => (
