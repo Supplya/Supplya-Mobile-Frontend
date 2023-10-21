@@ -31,6 +31,11 @@ export default function Page() {
           <Text>Home</Text>
         </TouchableOpacity>
       </Link>
+      <Link href="/Details" asChild>
+        <TouchableOpacity style={styles.button}>
+          <Text>Details</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 }
