@@ -6,13 +6,11 @@ import {
   Pressable,
 } from "react-native";
 import React from "react";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { COLORS, FONTS, SIZES } from "@const/theme";
+import { COLORS } from "@const/theme";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./populardealscard.style";
 
 const PopularDealsCard = ({ selected, setSelected, index, handlePress }) => {
-  // console.log("Popular deals card rendered");
   return (
     <Pressable
       style={[

@@ -37,6 +37,7 @@ const Details = () => {
   return (
     <View style={styles.container}>
       <ScrollView
+        style={{ flex: 1, width: wp(100) }}
         contentContainerStyle={{ alignItems: "center", paddingBottom: hp(7.4) }}
       >
         <Stack.Screen

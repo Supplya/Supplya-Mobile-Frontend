@@ -4,6 +4,7 @@ import BackButton from "@/components/header/BackButton";
 import { COLORS, FONTS, SIZES } from "@const/theme";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import Search from "@/components/common/Search";
+import { globalStyles } from "styles/global";
 
 export default function MoreLayout() {
   return (
@@ -15,9 +16,7 @@ export default function MoreLayout() {
         headerStyle: { backgroundColor: COLORS.offWhite },
         headerRight: () => <Search />,
         headerTitleStyle: {
-          fontFamily: FONTS.semiBold,
-          fontSize: wp(SIZES.medium2),
-          color: COLORS.black,
+          ...globalStyles.headerFont,
         },
       }}
     >

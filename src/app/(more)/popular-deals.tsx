@@ -10,7 +10,7 @@ import Divider from "@/components/common/Divider";
 import FeaturedCard from "@comp/common/FeaturedCard";
 
 const Deals = () => {
-  console.log("Popular deals screen rendered")
+  console.log("Popular deals screen rendered");
   const data = [0, 1, 2, 3, 4, 5, 6];
   const [selected, setSelected] = useState(undefined);
 
@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(5),
     alignItems: "center",
     gap: 10,
-    minHeight: "100%",
+    minHeight: hp(100),
   },
 });

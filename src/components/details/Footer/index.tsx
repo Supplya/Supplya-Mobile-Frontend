@@ -14,7 +14,7 @@ const Footer = () => {
       <View style={{ flex: 1 }}>
         <CustomButton
           title="Buy Now"
-          onPress={() => {}}
+          onPress={() => router.push("/order-summary")}
           dynamicWidth={"100%"}
         />
       </View>
