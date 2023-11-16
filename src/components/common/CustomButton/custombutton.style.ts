@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   text: {
-    ...globalStyles.fontSemiBold17,
+    ...globalStyles.fontSemiBold16,
     color: COLORS.white,
   },
 });

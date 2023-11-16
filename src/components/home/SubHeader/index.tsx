@@ -9,7 +9,7 @@ const SubHeader = ({ title, onPress }) => {
       <Text
         style={{
           fontFamily: FONTS.bold,
-          fontSize: wp(SIZES.medium3),
+          fontSize: wp(SIZES.medium2),
         }}
       >
         {title}
@@ -18,9 +18,9 @@ const SubHeader = ({ title, onPress }) => {
         <Text
           style={{
             fontFamily: FONTS.bold,
-            fontSize: wp(SIZES.medium2),
+            fontSize: wp(SIZES.medium),
             color: COLORS.primary,
-            lineHeight: wp(SIZES.medium2 * 1.29412),
+            lineHeight: wp(SIZES.medium * 1.29412),
           }}
         >
           See All

@@ -180,11 +180,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: FONTS.regular,
-    fontSize: wp(SIZES.medium2),
+    fontSize: wp(SIZES.medium),
   },
   pressable: {
     fontFamily: FONTS.medium,
-    fontSize: wp(SIZES.medium2),
+    fontSize: wp(SIZES.medium),
     color: COLORS.primary,
   },
 });

@@ -8,10 +8,7 @@ import PopularDealsCard from "@/components/home/PopularDealsCard";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const Goods = () => {
-  // console.log("Goods screen rendered");
   const [selectedType, setSelectedType] = useState(0);
-
-  const [selectedItem, setSelectedItem] = useState(undefined);
 
   const { type }: any = useLocalSearchParams();
 
@@ -21,10 +18,6 @@ const Goods = () => {
 
   function handleSelectedType(index) {
     setSelectedType(index);
-  }
-
-  function handleSelectedItem(index) {
-    setSelectedItem(index);
   }
 
   return (
@@ -37,6 +30,7 @@ const Goods = () => {
           options={{
             title: type,
           }}
+          redirect={false}
         />
         <View style={styles.freeShipping}>
           <Text style={styles.freeShippingText}>
@@ -60,7 +54,7 @@ const Goods = () => {
           )}
           horizontal
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => item}
+          keyExtractor={(item) => item}
         />
         <View
           style={{
@@ -71,11 +65,8 @@ const Goods = () => {
             flexWrap: "wrap",
           }}
         >
-          {fruitsArr?.map((item, index) => (
+          {fruitsArr?.map((item) => (
             <PopularDealsCard
-              selected={selectedItem}
-              setSelected={handleSelectedItem}
-              index={index}
               key={item.toString()}
               handlePress={() => router.push(`/${item}`)}
             />

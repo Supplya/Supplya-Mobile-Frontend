@@ -1,7 +1,6 @@
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Minus from "../Minus";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Plus from "../Plus";
 import { COLORS } from "@const/theme";
 import { globalStyles } from "styles/global";

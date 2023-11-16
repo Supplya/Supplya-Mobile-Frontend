@@ -12,7 +12,7 @@ const ProductTab = ({ activeTab, setActiveTab, tabs }) => {
           <TouchableOpacity
             style={[
               styles.button,
-              activeTab !== title && {
+              activeTab === title && {
                 backgroundColor: COLORS.white,
                 elevation: 5,
               },

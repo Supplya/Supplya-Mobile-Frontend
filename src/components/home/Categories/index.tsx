@@ -27,7 +27,6 @@ const Categories = () => {
       />
       <FlatList
         data={data}
-        contentContainerStyle={{}}
         renderItem={({ item }) => {
           return (
             <View style={{ width: wp("25%") }}>

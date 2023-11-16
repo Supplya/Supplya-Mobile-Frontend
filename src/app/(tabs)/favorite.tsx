@@ -1,11 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 import React from "react";
+import { Stack } from "expo-router";
+import FavoriteCard from "@comp/favorite/FavoriteCard";
 
 const Favorite = () => {
-  console.log("Favourite screen rendered")
+  console.log("Favourite screen rendered");
+  const data = ["1", "2", "3"];
   return (
     <View style={styles.container}>
-      <Text>More</Text>
+      <Stack.Screen />
+      <FlatList data={data} renderItem={({ item }) => <FavoriteCard />} />
     </View>
   );
 };

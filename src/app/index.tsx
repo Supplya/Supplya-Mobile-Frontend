@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
-import Pagination from "@/components/onboarding/Pagination";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Page() {

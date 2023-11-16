@@ -238,11 +238,11 @@ const styles = StyleSheet.create({
   },
   haveAccountText: {
     fontFamily: FONTS.regular,
-    fontSize: wp(SIZES.medium2),
+    fontSize: wp(SIZES.medium),
   },
   loginText: {
     fontFamily: FONTS.medium,
-    fontSize: wp(SIZES.medium2),
+    fontSize: wp(SIZES.medium),
     textDecorationLine: "underline",
     textDecorationColor: COLORS.primary,
     color: COLORS.primary,

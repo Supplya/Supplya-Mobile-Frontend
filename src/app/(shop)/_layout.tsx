@@ -38,6 +38,7 @@ export default function MoreLayout() {
           title: "Popular Deals",
         }}
       />
+      <Stack.Screen name="[id]" />
     </Stack>
   );
 }

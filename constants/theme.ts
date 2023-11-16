@@ -15,8 +15,7 @@ export const SIZES = {
   extraSmall: 3.1, // Equals 12
   small: 3.65, // Equals 14
   medium: 4.1, // Equals 16
-  medium2: 4.3, // Equals 17
-  medium3: 5.1, // Equals 20
+  medium2: 5.1, // Equals 20
   large: 6.1, // Equals 24
   extraLarge: 9.3, // Equals 36,
 };

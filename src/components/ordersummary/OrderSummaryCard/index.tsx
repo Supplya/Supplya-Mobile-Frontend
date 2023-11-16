@@ -2,18 +2,36 @@ import { View, Text, Pressable } from "react-native";
 import React from "react";
 import styles from "./ordersummarycard.style";
 import QuantityPicker from "@/components/common/QuantityPicker";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
-const OrderSummaryCard = ({ item, selected, setSelected }) => {
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
+const OrderSummaryCard = ({ item }) => {
+  const elevation = useSharedValue(0);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      elevation: elevation.value,
+      zIndex: elevation.value ? 1 : 0,
+    };
+  });
+
+  const handlePressIn = () => {
+    elevation.value = withTiming(50, { duration: 50 });
+  };
+  const handlePressOut = () => {
+    elevation.value = withTiming(0, { duration: 50 });
+  };
   return (
-    <Pressable
-      style={[
-        styles.container,
-        {
-          elevation: selected === item ? 50 : 0,
-          zIndex: selected === item ? 1 : 0,
-        },
-      ]}
-      onPress={() => setSelected(item)}
+    <AnimatedPressable
+      style={[styles.container, animatedStyle]}
+      onPress={() => console.log("Pressed")}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
     >
       <View style={styles.square} />
       <View style={styles.detailView}>
@@ -24,7 +42,7 @@ const OrderSummaryCard = ({ item, selected, setSelected }) => {
       <View style={styles.picker}>
         <QuantityPicker />
       </View>
-    </Pressable>
+    </AnimatedPressable>
   );
 };
 

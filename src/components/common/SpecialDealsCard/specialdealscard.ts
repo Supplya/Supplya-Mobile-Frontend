@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: FONTS.bold,
-    fontSize: wp(SIZES.medium3),
+    fontSize: wp(SIZES.medium2),
     color: COLORS.white,
     marginBottom: 5,
   },

@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 const styles = StyleSheet.create({
   title: {
     fontFamily: FONTS.bold,
-    fontSize: wp(SIZES.medium2),
+    fontSize: wp(SIZES.medium),
     color: COLORS.gray,
     marginBottom: 5,
   },

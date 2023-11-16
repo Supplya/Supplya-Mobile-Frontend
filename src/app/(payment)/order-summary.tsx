@@ -1,7 +1,6 @@
 import {
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -12,15 +11,10 @@ import React, { useState } from "react";
 import OrderSummaryCard from "@comp/ordersummary/OrderSummaryCard";
 import { COLORS, SIZES } from "@const/theme";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { router, useFocusEffect } from "expo-router";
+import { router } from "expo-router";
 import { globalStyles } from "styles/global";
 import { FlatList } from "react-native";
-import CustomButton from "@/components/common/CustomButton";
-
-type Gross = {
-  name: string;
-  price: string;
-};
+import CustomButton from "@comp/common/CustomButton";
 
 const OrderSummary = () => {
   const [selected, setSelected] = useState(-1);
@@ -33,9 +27,7 @@ const OrderSummary = () => {
     { name: "Total price", price: "$163" },
   ];
 
-  function handleSelected(index) {
-    setSelected(index);
-  }
+  function handleSelected(index) {}
 
   return (
     <View style={styles.container}>
@@ -54,13 +46,10 @@ const OrderSummary = () => {
                 index < data?.length - 1 && { marginBottom: wp(SIZES.medium) },
               ]}
             >
-              <OrderSummaryCard
-                item={item}
-                selected={selected}
-                setSelected={handleSelected}
-              />
+              <OrderSummaryCard item={item} />
             </View>
           )}
+          keyExtractor={(item) => item}
           ListFooterComponent={() => (
             <>
               <View style={styles.separator} />
@@ -119,7 +108,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   promoTitle: {
-    ...globalStyles.fontRegular17,
+    ...globalStyles.fontRegular16,
     color: COLORS.labelGray1,
     alignSelf: "flex-start",
     marginBottom: 8,
@@ -135,11 +124,11 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    ...globalStyles.fontRegular17,
+    ...globalStyles.fontRegular16,
     color: COLORS.labelDark,
   },
   applyText: {
-    ...globalStyles.fontBold17,
+    ...globalStyles.fontBold16,
     color: COLORS.primary,
   },
   totalView: {
