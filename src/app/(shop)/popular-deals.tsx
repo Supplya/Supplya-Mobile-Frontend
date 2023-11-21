@@ -1,12 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useState } from "react";
-import { COLORS, FONTS, SIZES } from "@const/theme";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { COLORS } from "@const/theme";
+import { ScrollView } from "react-native-gesture-handler";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
-import Divider from "@/components/common/Divider";
 import FeaturedCard from "@comp/common/FeaturedCard";
 
 const Deals = () => {

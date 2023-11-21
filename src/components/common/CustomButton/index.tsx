@@ -1,7 +1,6 @@
 import { Text, TouchableOpacity, DimensionValue } from "react-native";
 import React from "react";
 import { COLORS } from "@const/theme";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import styles from "./custombutton.style";
 
 type CustomButtonProps = {
@@ -9,36 +8,46 @@ type CustomButtonProps = {
   staticWidth?: string | number;
   onPress: () => void;
   secondary?: boolean;
+  tertiary?: boolean;
   dynamicWidth?: DimensionValue;
 };
 
 const CustomButton = ({
   title,
   secondary,
+  tertiary,
   onPress,
-  staticWidth,
-  dynamicWidth,
 }: CustomButtonProps) => {
   return (
     <TouchableOpacity
       style={[
         styles.container,
         {
-          backgroundColor: secondary ? COLORS.lightGreen : COLORS.primary,
+          backgroundColor: secondary
+            ? COLORS.lightGreen
+            : tertiary
+            ? COLORS.white
+            : COLORS.primary,
+          borderWidth: tertiary ? 1 : 0,
+          borderColor: tertiary ? COLORS.primary : "transparent",
         },
-        dynamicWidth && { width: dynamicWidth },
-        staticWidth && { width: wp(staticWidth) },
       ]}
       onPress={onPress}
     >
       <Text
         style={[
           styles.text,
-          secondary && {
-            alignSelf: "flex-start",
-            paddingLeft: 16,
-            color: COLORS.primary,
-          },
+          secondary
+            ? {
+                alignSelf: "flex-start",
+                paddingLeft: 16,
+                color: COLORS.primary,
+              }
+            : tertiary
+            ? {
+                color: COLORS.primary,
+              }
+            : {},
         ]}
       >
         {title}

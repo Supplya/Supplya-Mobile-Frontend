@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingVertical: 14,
     fontFamily: FONTS.regular,
     fontSize: wp(SIZES.medium),
     flex: 1,

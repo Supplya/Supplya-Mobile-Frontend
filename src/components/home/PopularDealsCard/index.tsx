@@ -8,6 +8,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { router } from "expo-router";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const PopularDealsCard = ({ handlePress }) => {
@@ -39,6 +40,7 @@ const PopularDealsCard = ({ handlePress }) => {
       style={[styles.container, animatedStyle]}
       onPress={() => {
         console.log("Whole button called");
+        router.push("/DragonFruit");
       }}
       onPressIn={handlePressIn}
       onPressOut={() => {

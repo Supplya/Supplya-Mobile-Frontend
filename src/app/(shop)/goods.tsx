@@ -30,7 +30,6 @@ const Goods = () => {
           options={{
             title: type,
           }}
-          redirect={false}
         />
         <View style={styles.freeShipping}>
           <Text style={styles.freeShippingText}>

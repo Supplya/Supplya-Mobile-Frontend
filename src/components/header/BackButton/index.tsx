@@ -8,7 +8,7 @@ import styles from "./backbutton.style";
 const BackButton = ({ onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Ionicons name="md-arrow-back" size={20} color={COLORS.primary} />
+      <Ionicons name="md-arrow-back" size={22} color={COLORS.primary} />
     </TouchableOpacity>
   );
 };

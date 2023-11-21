@@ -1,13 +1,14 @@
-import Search from "@/components/common/Search";
-import HeaderTitle from "@/components/header/HeaderTitle";
-import CartIcon from "@/components/tab/CartIcon";
-import CustomTabBar from "@/components/tab/CustomTabBar";
-import FavoriteIcon from "@/components/tab/FavoriteIcon";
-import HomeIcon from "@/components/tab/HomeIcon";
-import ProfileIcon from "@/components/tab/ProfileIcon";
+import Search from "@comp/common/Search";
+import BackButton from "@comp/header/BackButton";
+import HeaderTitle from "@comp/header/HeaderTitle";
+import CartIcon from "@comp/tab/CartIcon";
+import CustomTabBar from "@comp/tab/CustomTabBar";
+import FavoriteIcon from "@comp/tab/FavoriteIcon";
+import HomeIcon from "@comp/tab/HomeIcon";
+import ProfileIcon from "@comp/tab/ProfileIcon";
 import { COLORS, FONTS, SIZES } from "@const/theme";
-import { Tabs } from "expo-router";
-import { SafeAreaView } from "react-native";
+import { Tabs, router } from "expo-router";
+import { View, SafeAreaView } from "react-native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 export default function TabLayout() {
@@ -61,7 +62,19 @@ export default function TabLayout() {
             headerShadowVisible: false,
           }}
         />
-        <Tabs.Screen name="favorite" />
+        <Tabs.Screen
+          name="favorite"
+          options={{
+            title: "Favorite Items",
+            headerTitleAlign: "center",
+            headerLeft: () => (
+              <View style={{ marginLeft: 16 }}>
+                <BackButton onPress={router.back} />
+              </View>
+            ),
+            headerRight: () => <Search style={{ marginRight: 16 }} />,
+          }}
+        />
         <Tabs.Screen name="cart" />
         <Tabs.Screen name="profile" />
       </Tabs>

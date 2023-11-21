@@ -25,9 +25,8 @@ const phoneOrEmailRegex =
 
 const Login = () => {
   const { handleSubmit, control, reset, watch } = useForm();
-  const pwd = watch("password");
 
-  const handleSignUp = (data) => {
+  const handleLogin = async (data) => {
     console.log(data);
     Keyboard.dismiss();
     router.push("/home");
@@ -112,7 +111,9 @@ const Login = () => {
               <Text style={styles.pressable}>Forgot your password?</Text>
             </Pressable>
           </Link>
-          <CustomButton title="Login" onPress={handleSubmit(handleSignUp)} />
+          <View>
+            <CustomButton title="Login" onPress={handleSubmit(handleLogin)} />
+          </View>
           <View
             style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 50 }}
           >
@@ -153,7 +154,6 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 24,
     paddingTop: hp("10%"),
-    // alignItems: "center",
     minHeight: hp("100%"),
   },
   titleView: {

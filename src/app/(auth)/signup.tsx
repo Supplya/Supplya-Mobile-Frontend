@@ -6,8 +6,9 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import {
   heightPercentageToDP as hp,
@@ -19,7 +20,8 @@ import { StatusBar } from "expo-status-bar";
 import { useForm } from "react-hook-form";
 import CustomButton from "@/components/common/CustomButton";
 import { Link, router } from "expo-router";
-import Pagination from "@/components/onboarding/Pagination";
+import { makeAPICall, separateAtWhitespace } from "utils";
+import { AxiosRequestConfig } from "axios";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -27,20 +29,72 @@ const EMAIL_REGEX =
 const phoneNumberRegex = /^\d{10}|\d{11}$/;
 /^(?:\+\d{13}|\d{11})$/;
 
-const countryCodeRegex = /^\+\d{1,4}\s\d{1,}$/;
+const countryCodeRegex = /^\+\d{1,4}$/;
+
+const url = "https://supplya.cyclic.app/api/v1";
 
 const SignUp = () => {
   const { handleSubmit, control, reset, watch } = useForm();
   const pwd = watch("password");
 
-  const handleSignUp = (data) => {
-    console.log(data);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [responseData, setResponseData] = useState<Record<
+    string,
+    string
+  > | null>(null);
+  const [error, setError] = useState("");
+
+  const handleSignUp = async (data: Record<string, string>) => {
+    const { firstName, lastName } = separateAtWhitespace(data?.name);
+
+    const bodyData = {
+      firstName,
+      lastName,
+      phoneNumber: data.country + data.phoneNumber,
+      email: data.email,
+      password: data.password,
+    };
+
+    const config: AxiosRequestConfig = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://supplya.cyclic.app/api/v1/auth/register",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer supplyaToken",
+      },
+      data: bodyData,
+      // data: {
+      //   firstName: "Clinton",
+      //   lastName: "Skyttrt",
+      //   phoneNumber: "09055488383",
+      //   email: "verbose1222@gmail.com",
+      //   password: "1234",
+      //   dob: "2022-12-10",
+      // },
+    };
+
+    makeAPICall(setIsLoading, setResponseData, setError, config);
+
     Keyboard.dismiss();
-    router.push("/home");
   };
 
   return (
     <View style={styles.container}>
+      {isLoading && (
+        <View
+          style={{
+            position: "absolute",
+            width: wp(100),
+            height: hp(100),
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "rgba(0,0,0,0.1)",
+          }}
+        >
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      )}
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -89,7 +143,7 @@ const SignUp = () => {
             <CustomInput
               title="Your Name"
               control={control}
-              name="Name"
+              name="name"
               pairInput
               rules={{
                 required: "This field is required",
@@ -178,7 +232,12 @@ const SignUp = () => {
             />
           </View>
 
-          <CustomButton title="Sign Up" onPress={handleSubmit(handleSignUp)} />
+          <View>
+            <CustomButton
+              title="Sign Up"
+              onPress={handleSubmit(handleSignUp)}
+            />
+          </View>
           <View style={styles.loginView}>
             <Text style={styles.haveAccountText}>Already have an account?</Text>
             <Link href="/login" asChild>
