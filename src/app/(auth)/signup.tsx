@@ -20,8 +20,9 @@ import { StatusBar } from "expo-status-bar";
 import { useForm } from "react-hook-form";
 import CustomButton from "@/components/common/CustomButton";
 import { Link, router } from "expo-router";
-import { makeAPICall, separateAtWhitespace } from "utils";
-import { AxiosRequestConfig } from "axios";
+import { separateAtWhitespace } from "utils";
+import axios, { AxiosRequestConfig } from "axios";
+import { DataParams } from "utils/types";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -44,16 +45,22 @@ const SignUp = () => {
   > | null>(null);
   const [error, setError] = useState("");
 
-  const handleSignUp = async (data: Record<string, string>) => {
+  const handleSignUp = async (data: DataParams) => {
     const { firstName, lastName } = separateAtWhitespace(data?.name);
 
+    if (lastName.length <= 4) {
+      throw alert("Last Name need to be at least 5 characters long");
+    }
     const bodyData = {
-      firstName,
-      lastName,
-      phoneNumber: data.country + data.phoneNumber,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: "0" + data.phoneNumber,
       email: data.email,
       password: data.password,
+      dob: "2022-12-10",
     };
+
+    console.log(bodyData);
 
     const config: AxiosRequestConfig = {
       method: "post",
@@ -64,17 +71,25 @@ const SignUp = () => {
         Authorization: "Bearer supplyaToken",
       },
       data: bodyData,
-      // data: {
-      //   firstName: "Clinton",
-      //   lastName: "Skyttrt",
-      //   phoneNumber: "09055488383",
-      //   email: "verbose1222@gmail.com",
-      //   password: "1234",
-      //   dob: "2022-12-10",
-      // },
     };
 
-    makeAPICall(setIsLoading, setResponseData, setError, config);
+    setIsLoading(true);
+    axios
+      .request(config)
+      .then((response) => {
+        setResponseData(response.data);
+        console.log(
+          "🚀 ~ file: index.ts:39 ~ .then ~ response.data:",
+          response.data
+        );
+      })
+      .catch((error) => {
+        console.error("Axios request error:", error);
+        setError(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
 
     Keyboard.dismiss();
   };
@@ -227,7 +242,8 @@ const SignUp = () => {
               type="password"
               rules={{
                 required: "Password is required",
-                validate: (value) => value === pwd || "Password does not match",
+                validate: (value: string) =>
+                  value === pwd || "Password does not match",
               }}
             />
           </View>

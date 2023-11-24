@@ -3,13 +3,11 @@ import React from "react";
 import Divider from "../Divider";
 import DiscountTag from "../DiscountTag";
 import styles from "./featuredcard.style";
+import AnimatedPressable from "@comp/common/AnimatedPressable";
 
-const FeaturedCard = ({ index, setSelected, selected }) => {
+const FeaturedCard = () => {
   return (
-    <Pressable
-      style={[styles.container, selected === index && { elevation: 100 }]}
-      onPress={() => setSelected(index)}
-    >
+    <AnimatedPressable style={styles.container} onPress={() => {}}>
       <View style={styles.square} />
       <View style={styles.description}>
         <DiscountTag />
@@ -22,7 +20,7 @@ const FeaturedCard = ({ index, setSelected, selected }) => {
         </Divider>
         <Text style={styles.price}>$45</Text>
       </View>
-    </Pressable>
+    </AnimatedPressable>
   );
 };
 

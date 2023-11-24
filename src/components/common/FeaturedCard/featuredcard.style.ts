@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   price: {
     fontFamily: FONTS.bold,
-    fontSize: wp(SIZES.medium3),
+    fontSize: wp(SIZES.medium2),
   },
 });
 

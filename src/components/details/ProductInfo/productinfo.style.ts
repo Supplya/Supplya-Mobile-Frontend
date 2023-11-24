@@ -9,8 +9,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 20,
     width: wp(100),
+    gap: 20,
   },
   leftSide: {
+    flex: 1,
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
@@ -22,6 +24,17 @@ const styles = StyleSheet.create({
   },
   rightSide: {
     alignSelf: "flex-end",
+  },
+  discountView: {
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  line: {
+    position: "absolute",
+    height: 1,
+    backgroundColor: COLORS.red,
+    alignSelf: "center",
   },
   smallGrayText: {
     fontFamily: FONTS.regular,

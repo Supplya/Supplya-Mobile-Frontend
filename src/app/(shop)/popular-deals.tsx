@@ -20,12 +20,7 @@ const Deals = () => {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content} style={{ flex: 1 }}>
         {data?.map((_, index) => (
-          <FeaturedCard
-            key={index.toString()}
-            index={index}
-            selected={selected}
-            setSelected={handleSelected}
-          />
+          <FeaturedCard key={index.toString()} />
         ))}
       </ScrollView>
     </View>

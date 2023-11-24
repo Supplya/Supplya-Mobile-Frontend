@@ -1,3 +1,4 @@
+import CustomHeader from "@/components/header/CustomHeader";
 import Search from "@comp/common/Search";
 import BackButton from "@comp/header/BackButton";
 import HeaderTitle from "@comp/header/HeaderTitle";
@@ -56,8 +57,9 @@ export default function TabLayout() {
         <Tabs.Screen
           name="home"
           options={{
-            headerRight: () => <Search style={{ marginRight: 20 }} />,
-            headerTitle: () => <HeaderTitle />,
+            // headerRight: () => <Search style={{ marginRight: 20 }} />,
+            // headerTitle: () => <HeaderTitle />,
+            header: (props) => <CustomHeader />,
             headerStyle: { backgroundColor: COLORS.offWhite },
             headerShadowVisible: false,
           }}
@@ -65,7 +67,8 @@ export default function TabLayout() {
         <Tabs.Screen
           name="favorite"
           options={{
-            title: "Favorite Items",
+            title: "Favorite",
+            headerTitle: "Favorite Item",
             headerTitleAlign: "center",
             headerLeft: () => (
               <View style={{ marginLeft: 16 }}>

@@ -1,16 +1,8 @@
+import { Product } from "utils/types";
 import { create } from "zustand";
 
-export interface Product {
-  id: number;
-  price: number;
-  image?: string;
-  images?: string[];
-  inStock: boolean;
-  name: string;
-  description: string;
-}
 export interface CartState {
-  products: Array<Product & { quantity: number }>;
+  products: Array<Product & { units: number }>;
   items: number;
   total: number;
   addProduct: (product: Product) => void;
@@ -26,13 +18,13 @@ const useCartStore = create<CartState>()((set) => ({
     set((state) => {
       state.items += 1;
       state.total += product.price;
-      const productExists = state.products.find((p) => p.id === product.id);
+      const productExists = state.products.find((p) => p._id === product._id);
 
       if (productExists) {
-        productExists.quantity += 1;
+        productExists.units += 1;
         return { products: [...state.products] };
       } else {
-        return { products: [...state.products, { ...product, quantity: 1 }] };
+        return { products: [...state.products, { ...product, units: 1 }] };
       }
     });
   },
@@ -43,12 +35,12 @@ const useCartStore = create<CartState>()((set) => ({
       return {
         products: state.products
           .map((p) => {
-            if (p.id === product.id) {
-              p.quantity -= 1;
+            if (p._id === product._id) {
+              p.units -= 1;
             }
             return p;
           })
-          .filter((p) => p.quantity > 0),
+          .filter((p) => p.units > 0),
       };
     });
   },

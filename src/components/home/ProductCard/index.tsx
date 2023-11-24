@@ -8,9 +8,9 @@ const ProductCard = () => {
   return (
     <View style={styles.container}>
       <View style={styles.rectangle} />
-      <Text style={{ fontFamily: FONTS.bold, fontSize: 16 }}>Product Name</Text>
-      <Text style={{ fontFamily: FONTS.medium, fontSize: 12 }}>10Kg</Text>
-      <Text style={{ fontFamily: FONTS.bold, fontSize: 14 }}>N20,000</Text>
+      <Text style={styles.productName}>Product Name</Text>
+      <Text style={styles.size}>10Kg</Text>
+      <Text style={styles.price}>N20,000</Text>
     </View>
   );
 };

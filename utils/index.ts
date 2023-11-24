@@ -1,6 +1,3 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { Dispatch, SetStateAction } from "react";
-
 export function separateAtWhitespace(name: string) {
   if (name !== undefined) {
     const spaceIndex = name.indexOf(" ");
@@ -23,30 +20,4 @@ export function separateAtWhitespace(name: string) {
     return { firstName, lastName };
   }
   return { firstName: "" };
-}
-
-export function makeAPICall(
-  setIsLoading: Dispatch<SetStateAction<boolean>>,
-  setResponseData: Dispatch<SetStateAction<Record<string, string>>>,
-  setError: Dispatch<SetStateAction<string>>,
-  config: AxiosRequestConfig
-): Promise<void> {
-  setIsLoading(true);
-
-  return axios
-    .request(config)
-    .then((response) => {
-      setResponseData(response.data);
-      console.log(
-        "🚀 ~ file: index.ts:39 ~ .then ~ response.data:",
-        response.data
-      );
-    })
-    .catch((error) => {
-      console.error("Axios request error:", error);
-      setError(error);
-    })
-    .finally(() => {
-      setIsLoading(false);
-    });
 }

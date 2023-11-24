@@ -8,8 +8,6 @@ import SpecialDeals from "@/components/home/SpecialDeals";
 import PopularDeals from "@/components/home/PopularDeals";
 
 const Home = () => {
-  console.log("Home screen rendered");
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingTop: 20, paddingBottom: 60 }}>

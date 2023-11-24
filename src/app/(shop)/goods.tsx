@@ -1,11 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import React, { useState } from "react";
 import { Stack, router, useLocalSearchParams } from "expo-router";
-import GoodsTypeCard from "@/components/common/GoodsTypeCard";
+import GoodsTypeCard from "@comp/common/GoodsTypeCard";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { COLORS, FONTS, SIZES } from "@const/theme";
-import PopularDealsCard from "@/components/home/PopularDealsCard";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import PopularDealsCard from "@comp/home/PopularDealsCard";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
+import useFetchProducts from "hooks/useFetchProducts";
+import { RequestParams } from "utils/types";
 
 const Goods = () => {
   const [selectedType, setSelectedType] = useState(0);
@@ -14,7 +19,13 @@ const Goods = () => {
 
   const categories = ["All", "Apples", "Avocado", "Banana"];
 
-  const fruitsArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const url = "https://supplya.cyclic.app/api/v1";
+  const options: RequestParams = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: `${url}/products`,
+  };
+  const { data, error, isLoading } = useFetchProducts(options);
 
   function handleSelectedType(index) {
     setSelectedType(index);
@@ -42,7 +53,7 @@ const Goods = () => {
             paddingHorizontal: 15,
             gap: 10,
           }}
-          style={{ marginBottom: 10 }}
+          // style={{ marginBottom: 10 }}
           renderItem={({ item, index }) => (
             <GoodsTypeCard
               type={item}
@@ -55,22 +66,38 @@ const Goods = () => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item}
         />
-        <View
-          style={{
-            width: wp(100),
-            flexDirection: "row",
-            justifyContent: "center",
-            gap: 5,
-            flexWrap: "wrap",
-          }}
-        >
-          {fruitsArr?.map((item) => (
-            <PopularDealsCard
-              key={item.toString()}
-              handlePress={() => router.push(`/${item}`)}
-            />
-          ))}
-        </View>
+
+        {isLoading ? (
+          <View
+            style={{
+              // backgroundColor: "red",
+              height: hp(30),
+              justifyContent: "center",
+            }}
+          >
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          </View>
+        ) : error ? (
+          <Text>Something is wrong. Try again</Text>
+        ) : (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: wp(SIZES.extraSmall),
+              marginHorizontal: wp(SIZES.medium),
+            }}
+          >
+            {data.products?.map((item) => (
+              <PopularDealsCard
+                key={item._id}
+                product={item}
+                handlePress={() => router.push(`/${item._id}`)}
+              />
+            ))}
+          </View>
+        )}
       </ScrollView>
     </View>
   );

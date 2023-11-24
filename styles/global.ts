@@ -20,7 +20,10 @@ export const globalStyles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: wp(SIZES.medium),
   },
-
+  fontMedium12: {
+    fontFamily: FONTS.medium,
+    fontSize: wp(SIZES.extraSmall),
+  },
   fontSemiBold14: {
     fontFamily: FONTS.semiBold,
     fontSize: wp(SIZES.small),
@@ -28,6 +31,10 @@ export const globalStyles = StyleSheet.create({
   fontSemiBold16: {
     fontFamily: FONTS.semiBold,
     fontSize: wp(SIZES.medium),
+  },
+  fontBold14: {
+    fontFamily: FONTS.bold,
+    fontSize: wp(SIZES.small),
   },
   fontBold16: {
     fontFamily: FONTS.bold,

@@ -10,6 +10,10 @@ const styles = StyleSheet.create({
   divider: {
     position: "absolute",
     alignSelf: "center",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });
 

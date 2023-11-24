@@ -4,10 +4,11 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   container: {
-    width: wp(45),
+    width: wp(44),
     backgroundColor: COLORS.white,
     borderRadius: 8,
     padding: 10,
+    justifyContent: "space-between",
   },
   square: {
     alignSelf: "center",
@@ -15,18 +16,19 @@ const styles = StyleSheet.create({
     aspectRatio: 152 / 113,
     backgroundColor: COLORS.systemGray,
     borderRadius: 8,
-    marginBottom: 5,
   },
   title: {
+    flex: 1,
     fontFamily: FONTS.bold,
     fontSize: wp(SIZES.medium2),
     color: COLORS.dark,
-    marginBottom: 5,
+    marginVertical: 4,
   },
   subtitle: {
     fontFamily: FONTS.regular,
     fontSize: wp(SIZES.extraSmall),
     color: COLORS.gray,
+    marginVertical: 4,
   },
   row: {
     flexDirection: "row",
