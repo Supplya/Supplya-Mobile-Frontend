@@ -39,6 +39,10 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.bold,
     fontSize: wp(SIZES.medium2),
   },
+  // addedToCart: {
+  //   height: 40,
+  //   paddingHorizontal: 5
+  // },
   plusButton: {
     width: 40,
     height: 40,

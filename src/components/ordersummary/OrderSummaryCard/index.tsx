@@ -1,16 +1,21 @@
 import { View, Text, Pressable } from "react-native";
 import React from "react";
 import styles from "./ordersummarycard.style";
-import QuantityPicker from "@/components/common/QuantityPicker";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { ProductWithUnits } from "utils/types";
+import CartItemCounter from "@checkout/CartItemCounter";
+
+interface OrderSummaryProps {
+  product: ProductWithUnits;
+}
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-const OrderSummaryCard = ({ item }) => {
+const OrderSummaryCard = ({ product }: OrderSummaryProps) => {
   const elevation = useSharedValue(0);
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -35,12 +40,18 @@ const OrderSummaryCard = ({ item }) => {
     >
       <View style={styles.square} />
       <View style={styles.detailView}>
-        <Text style={styles.name}>Dragon Fruit</Text>
-        <Text style={styles.size}>200gr</Text>
-        <Text style={styles.price}>$45</Text>
+        <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
+          {product.name}
+        </Text>
+        <Text style={styles.size} numberOfLines={1}>
+          200gr
+        </Text>
+        <Text style={styles.price} numberOfLines={1}>
+          {product.price}
+        </Text>
       </View>
       <View style={styles.picker}>
-        <QuantityPicker />
+        <CartItemCounter product={product} />
       </View>
     </AnimatedPressable>
   );

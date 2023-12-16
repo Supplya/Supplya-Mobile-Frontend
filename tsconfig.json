@@ -2,25 +2,21 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@comp/*": [
-        "src/components/*"
-      ],
-      "@const/*": [
-        "constants/*"
-      ],
-      "@img/*": [
-        "assets/images/*"
-      ],
+      "@/*": ["src/*"],
+      "@comp/*": ["src/components/*"],
+      "@const/*": ["constants/*"],
+      "@img/*": ["assets/images/*"],
+      "@checkout/*": ["src/components/checkout/*"],
+      "@common/*": ["src/components/common/*"],
+      "@details/*": ["src/components/details/*"],
+      "@favorite/*": ["src/components/favorite/*"],
+      "@header/*": ["src/components/header/*"],
+      "@home/*": ["src/components/home/*"],
+      "@onboarding/*": ["src/components/onboarding/*"],
+      "@ordersummary/*": ["src/components/ordersummary/*"],
+      "@tab/*": ["src/components/tab/*"]
     }
   },
   "extends": "expo/tsconfig.base",
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

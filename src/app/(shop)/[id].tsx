@@ -1,25 +1,27 @@
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
-import React, { useState } from "react";
-import { Stack, useLocalSearchParams } from "expo-router";
+import React, { useCallback, useEffect, useState } from "react";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import { COLORS } from "@const/theme";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
-import ProductInfo from "@/components/details/ProductInfo";
+import ProductInfo from "@comp/details/ProductInfo";
 import QuantityPicker from "@comp/common/QuantityPicker";
 import { globalStyles } from "styles/global";
 import { ScrollView } from "react-native-gesture-handler";
-import ProductTab from "@/components/details/ProductTab";
-import ReviewTab from "@/components/details/ReviewTab";
-import DetailsTab from "@/components/details/DetailsTab";
-import Footer from "@/components/details/Footer";
-import { RequestParams } from "utils/types";
-import useFetchProduct from "hooks/useFetchProduct";
+import ProductTab from "@comp/details/ProductTab";
+import ReviewTab from "@comp/details/ReviewTab";
+import DetailsTab from "@comp/details/DetailsTab";
+import Footer from "@comp/details/Footer";
+import { Product, RequestParams } from "utils/types";
+import useFetch from "hooks/useFetch";
 
 const Details = () => {
+  console.log("Details rendered");
   const { id } = useLocalSearchParams();
 
+  const { setOptions } = useNavigation();
   const url = "https://supplya.cyclic.app/api/v1";
 
   const options: RequestParams = {
@@ -27,10 +29,8 @@ const Details = () => {
     maxBodyLength: Infinity,
     url: `${url}/products/${id}`,
   };
-  console.log(`${url}/products/${id}`);
 
-  const { data, error, isLoading } = useFetchProduct(options);
-  console.log("🚀 ~ file: [id].tsx:32 ~ Details ~ data:", data);
+  const { data, error, isLoading } = useFetch<Product>(options);
 
   const tabs = ["Reviews", "Details"];
 
@@ -40,7 +40,7 @@ const Details = () => {
     setActiveTab(tab);
   };
 
-  const displayTabContent = () => {
+  const displayTabContent = useCallback(() => {
     switch (activeTab) {
       case "Reviews":
         return <ReviewTab />;
@@ -49,7 +49,21 @@ const Details = () => {
       default:
         return <Text>Something went wrong</Text>;
     }
-  };
+  }, [activeTab]);
+
+  useEffect(() => {
+    setOptions({
+      headerTitle: () => (
+        <Text style={styles.headerText} numberOfLines={1} ellipsizeMode="tail">
+          {data ? data.name : ""}
+        </Text>
+      ),
+      headerStyle: {
+        backgroundColor: COLORS.white,
+      },
+    });
+  });
+
   return (
     <View style={styles.container}>
       {isLoading ? (
@@ -66,23 +80,15 @@ const Details = () => {
             paddingBottom: hp(7.4),
           }}
         >
-          <Stack.Screen
-            options={{
-              title: data ? data.name : "",
-              headerStyle: {
-                backgroundColor: COLORS.white,
-              },
-            }}
-          />
           <View style={styles.image} />
           <ProductInfo product={data} />
           <View style={styles.quantityPicker}>
             <Text
               style={[globalStyles.fontBold20, { color: COLORS.labelDark }]}
             >
-              $45
+              ₦ {data?.price}
             </Text>
-            <QuantityPicker />
+            <QuantityPicker product={data} />
           </View>
           <ProductTab
             activeTab={activeTab}
@@ -92,7 +98,7 @@ const Details = () => {
           {displayTabContent()}
         </ScrollView>
       )}
-      <Footer />
+      <Footer product={data} />
     </View>
   );
 };
@@ -110,6 +116,11 @@ const styles = StyleSheet.create({
     width: wp(100),
     aspectRatio: 375 / 240,
     backgroundColor: COLORS.systemGray,
+  },
+  headerText: {
+    ...globalStyles.fontBold20,
+    width: wp(50),
+    textAlign: "center",
   },
   quantityPicker: {
     flexDirection: "row",

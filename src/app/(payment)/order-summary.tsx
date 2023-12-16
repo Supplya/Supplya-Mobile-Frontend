@@ -1,33 +1,52 @@
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  Switch,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useState, useRef, useEffect } from "react";
 import OrderSummaryCard from "@comp/ordersummary/OrderSummaryCard";
 import { COLORS, SIZES } from "@const/theme";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 import { router } from "expo-router";
 import { globalStyles } from "styles/global";
 import { FlatList } from "react-native";
 import CustomButton from "@comp/common/CustomButton";
+import TotalPrice from "@/components/common/TotalPrice";
+import { TotalPriceData } from "utils/types";
+import useCartStore from "store/cartStore";
 
 const OrderSummary = () => {
-  const [selected, setSelected] = useState(-1);
+  const footerRef = useRef<View>(null);
 
-  const data = ["0", "1", "2"];
-  const gross = [
+  const [footerHeight, setFooterHeight] = useState<number>(0);
+
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  const { products, items, total } = useCartStore();
+
+  const gross: TotalPriceData[] = [
     { name: "Sub total Price", price: "$155" },
     { name: "Delivery Fee", price: "$8" },
     { name: "TanahAir Voucher", price: "None" },
     { name: "Total price", price: "$163" },
   ];
 
-  function handleSelected(index) {}
+  const handleFooterLayout = useCallback(() => {
+    footerRef.current?.measureInWindow((x, y, width, height) => {
+      setFooterHeight(height);
+    });
+  }, []);
+
+  const toggleSwitch = useCallback(() => setIsEnabled(!isEnabled), [isEnabled]);
 
   return (
     <View style={styles.container}>
@@ -35,53 +54,80 @@ const OrderSummary = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1, width: "100%" }}
       >
-        <FlatList
-          data={data}
-          style={{ flex: 1, width: "100%" }}
-          contentContainerStyle={styles.content}
-          renderItem={({ item, index }) => (
-            <View
-              style={[
-                { width: "100%" },
-                index < data?.length - 1 && { marginBottom: wp(SIZES.medium) },
-              ]}
-            >
-              <OrderSummaryCard item={item} />
+        {items === 0 ? (
+          <View style={styles.noItemView}>
+            <Text style={styles.noItem}>No items in cart</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={products}
+            style={{ flex: 1, width: "100%" }}
+            contentContainerStyle={[
+              styles.content,
+              { paddingBottom: footerHeight + 15 },
+            ]}
+            renderItem={({ item, index }) => (
+              <View
+                style={[
+                  { width: "100%" },
+                  index < products?.length - 1 && {
+                    marginBottom: wp(SIZES.medium),
+                  },
+                ]}
+              >
+                <OrderSummaryCard product={item} />
+              </View>
+            )}
+            keyExtractor={(item) => item._id}
+          />
+        )}
+        <View
+          style={styles.footer}
+          onLayout={handleFooterLayout}
+          ref={footerRef}
+        >
+          <View style={styles.separator} />
+          <View>
+            <Text style={styles.promoTitle}>Promo Code</Text>
+            <View style={styles.inputView}>
+              <TextInput
+                placeholder="Enter Promo Code"
+                placeholderTextColor={COLORS.labelGray2}
+                style={styles.input}
+              />
+              <TouchableOpacity onPress={() => console.log("Pressed")}>
+                <Text style={styles.applyText}>APPLY</Text>
+              </TouchableOpacity>
             </View>
-          )}
-          keyExtractor={(item) => item}
-          ListFooterComponent={() => (
-            <>
-              <View style={styles.separator} />
+            <View style={styles.insuranceView}>
+              <Text style={styles.insuranceText}>Add Insurance (0.2%)</Text>
+              <Switch
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+                trackColor={{
+                  false: COLORS.labelGray2,
+                  true: COLORS.lightGreen,
+                }}
+                thumbColor={isEnabled ? COLORS.primary : "#f4f3f4"}
+              />
+            </View>
+            <View style={styles.separator} />
+          </View>
 
-              <Text style={styles.promoTitle}>Promo Code</Text>
-              <View style={styles.inputView}>
-                <TextInput
-                  placeholder="Enter Promo Code"
-                  placeholderTextColor={COLORS.labelGray2}
-                  style={styles.input}
-                />
-                <TouchableOpacity onPress={() => console.log("Pressed")}>
-                  <Text style={styles.applyText}>APPLY</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.separator} />
-              {gross?.map((item) => (
-                <View style={styles.totalView}>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.price}>{item.price}</Text>
-                </View>
-              ))}
-              <View style={styles.checkoutBtn}>
-                <CustomButton
-                  title="Checkout"
-                  onPress={() => router.push("/checkout")}
-                />
-              </View>
-            </>
-          )}
-          ListFooterComponentStyle={{ width: "100%" }}
-        />
+          <TotalPrice total={total} />
+          <View style={styles.checkoutBtn}>
+            <CustomButton
+              title="Checkout"
+              onPress={() => {
+                if (items) {
+                  router.push("/checkout");
+                } else {
+                  Alert.alert("No items", "Add items to cart");
+                }
+              }}
+            />
+          </View>
+        </View>
       </KeyboardAvoidingView>
     </View>
   );
@@ -95,17 +141,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: COLORS.offWhite,
   },
+  noItemView: {
+    height: hp(30),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  noItem: {
+    ...globalStyles.fontMedium16,
+  },
   content: {
     paddingHorizontal: wp(SIZES.medium),
     paddingTop: wp(SIZES.medium),
     width: "100%",
     alignItems: "center",
   },
+  footer: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: wp(SIZES.medium),
+    backgroundColor: COLORS.offWhite,
+    gap: 15,
+    paddingBottom: 15,
+  },
   separator: {
     width: "100%",
     height: 1,
     backgroundColor: COLORS.separatorGray,
-    marginVertical: 20,
   },
   promoTitle: {
     ...globalStyles.fontRegular16,
@@ -131,20 +194,14 @@ const styles = StyleSheet.create({
     ...globalStyles.fontBold16,
     color: COLORS.primary,
   },
-  totalView: {
+  insuranceView: {
     flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
+    alignItems: "center",
   },
-  name: {
-    ...globalStyles.fontRegular16,
-    color: COLORS.graySeparator1,
-  },
-  price: {
+  insuranceText: {
+    flex: 1,
     ...globalStyles.fontBold16,
-    color: COLORS.labelDark,
   },
-  checkoutBtn: {
-    marginVertical: 20,
-  },
+
+  checkoutBtn: {},
 });

@@ -35,9 +35,19 @@ export default function Page() {
           <Text>Order Summary</Text>
         </TouchableOpacity>
       </Link>
+      <Link href="/checkout " asChild>
+        <TouchableOpacity style={styles.button}>
+          <Text>Checkout</Text>
+        </TouchableOpacity>
+      </Link>
       <Link href="/Details" asChild>
         <TouchableOpacity style={styles.button}>
           <Text>Details</Text>
+        </TouchableOpacity>
+      </Link>
+      <Link href="/order-success" asChild>
+        <TouchableOpacity style={styles.button}>
+          <Text>Order Success</Text>
         </TouchableOpacity>
       </Link>
     </View>

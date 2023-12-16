@@ -6,6 +6,8 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Modal,
+  ActivityIndicator,
 } from "react-native";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
@@ -19,21 +21,30 @@ import { StatusBar } from "expo-status-bar";
 import { useForm } from "react-hook-form";
 import CustomButton from "@/components/common/CustomButton";
 import { Link, router } from "expo-router";
+import useAuthStore from "store/authStore";
 
 const phoneOrEmailRegex =
   /^(\+234|0)[789]\d{9}$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Login = () => {
-  const { handleSubmit, control, reset, watch } = useForm();
+  const { handleSubmit, control, reset } = useForm();
+  const { signIn, isLoading } = useAuthStore();
+  console.log("🚀 ~ file: login.tsx:32 ~ Login ~ isLoading:", isLoading);
 
   const handleLogin = async (data) => {
     console.log(data);
+    signIn(data);
     Keyboard.dismiss();
     router.push("/home");
   };
 
   return (
     <View style={styles.container}>
+      <Modal visible={isLoading} transparent>
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      </Modal>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
@@ -99,7 +110,7 @@ const Login = () => {
               rules={{
                 required: "Password is required",
                 minLength: {
-                  value: 8,
+                  value: 4,
                   message: "Password is too short",
                 },
               }}
@@ -111,9 +122,7 @@ const Login = () => {
               <Text style={styles.pressable}>Forgot your password?</Text>
             </Pressable>
           </Link>
-          <View>
-            <CustomButton title="Login" onPress={handleSubmit(handleLogin)} />
-          </View>
+          <CustomButton title="Login" onPress={handleSubmit(handleLogin)} />
           <View
             style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 50 }}
           >
@@ -150,6 +159,11 @@ const styles = StyleSheet.create({
     width: wp("100%"),
     backgroundColor: COLORS.white,
     flex: 1,
+  },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   content: {
     paddingHorizontal: 24,

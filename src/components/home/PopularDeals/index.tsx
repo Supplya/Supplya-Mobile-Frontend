@@ -7,6 +7,7 @@ import styles from "./populardeals.style";
 import useFetchProducts from "hooks/useFetchProducts";
 import { RequestParams } from "utils/types";
 import { COLORS } from "@const/theme";
+import productData from "assets/data/productData";
 
 const PopularDeals = () => {
   const url = "https://supplya.cyclic.app/api/v1";
@@ -28,7 +29,20 @@ const PopularDeals = () => {
             <ActivityIndicator size="large" color={COLORS.primary} />
           </View>
         ) : error ? (
-          <Text>Something went wrong</Text>
+          <>
+            <Text>Something went wrong</Text>
+            <View style={styles.list}>
+              {productData?.map((item, index) => (
+                <PopularDealsCard
+                  key={index.toString()}
+                  product={item}
+                  handlePress={() => {
+                    router.push(`/${item._id}`);
+                  }}
+                />
+              ))}
+            </View>
+          </>
         ) : (
           <View style={styles.list}>
             {data.products?.map((item, index) => (

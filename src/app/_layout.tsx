@@ -1,8 +1,10 @@
 import { View } from "react-native";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import useCartStore from "store/cartStore";
+import useAuthStore from "store/authStore";
 
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
@@ -16,6 +18,15 @@ export default function RootLayout() {
     nunitoExtraBold: require("assets/fonts/Nunito-ExtraBold.ttf"),
     nunitoBlack: require("assets/fonts/Nunito-Black.ttf"),
   });
+
+  const { getCartItem } = useCartStore();
+  const { getUserData } = useAuthStore();
+
+  useEffect(() => {
+    getCartItem();
+    getUserData();
+  }, []);
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
       await SplashScreen.hideAsync();
@@ -33,6 +44,8 @@ export default function RootLayout() {
           headerShadowVisible: false,
           headerTitle: "",
           headerShown: false,
+          statusBarStyle: "dark",
+          statusBarTranslucent: true,
         }}
       />
     </View>

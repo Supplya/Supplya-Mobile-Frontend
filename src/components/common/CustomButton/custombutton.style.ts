@@ -5,8 +5,8 @@ import { globalStyles } from "styles/global";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingVertical: wp(SIZES.medium),
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: COLORS.primary,

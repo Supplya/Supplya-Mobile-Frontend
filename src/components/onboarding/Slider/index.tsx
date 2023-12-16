@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Animated } from "react-native";
+import { View, Animated } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import { welcomeData } from "assets/data/welcomeData";
 import SlideItem from "../SlideItem";
@@ -20,11 +20,6 @@ const Slider = () => {
     });
   }, [index]);
 
-  const incrementIndex = () => {
-    if (index === welcomeData.length - 1) return;
-    setIndex(index + 1);
-  };
-
   const skipToLastIndex = () => {
     if (index === welcomeData.length - 1) return;
     setIndex(welcomeData.length - 1);
@@ -39,7 +34,7 @@ const Slider = () => {
 
   return (
     <View style={{ flex: 0.8 }}>
-      <View style={{ flex: 1 }}>
+      <View style={{}}>
         <FlatList
           data={welcomeData}
           renderItem={({ item, index }) => (
@@ -62,8 +57,8 @@ const Slider = () => {
           onScroll={handleOnScroll}
           scrollEventThrottle={20}
         />
+        <Pagination data={welcomeData} scrollX={scrollX} index={index} />
       </View>
-      <Pagination data={welcomeData} scrollX={scrollX} index={index} />
     </View>
   );
 };

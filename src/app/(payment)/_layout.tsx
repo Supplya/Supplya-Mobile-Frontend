@@ -24,6 +24,25 @@ export default function PaymentLayout() {
           },
         }}
       />
+      <Stack.Screen
+        name="checkout"
+        options={{
+          title: "Checkout",
+          headerTitleStyle: {
+            ...globalStyles.headerFont,
+          },
+          headerLeft: () => <BackButton onPress={router.back} />,
+          headerStyle: {
+            backgroundColor: COLORS.offWhite,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="order-success"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

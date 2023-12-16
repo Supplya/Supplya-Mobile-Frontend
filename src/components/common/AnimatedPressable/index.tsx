@@ -18,12 +18,12 @@ const AnimatedPressable = ({
   style = {},
   children,
 }: AnimatedPressableProps) => {
-  const elevation = useSharedValue(0);
+  const elevation = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
       elevation: elevation.value,
-      zIndex: elevation.value ? 1 : 0,
+      zIndex: elevation.value > 1 ? 1 : 0,
     };
   });
 

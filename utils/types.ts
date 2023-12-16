@@ -38,6 +38,62 @@ export interface Product {
   name: string;
   description: string;
   quantity: string;
-  __v: number;
+  __v?: number;
   dateCreated: string;
+}
+
+export interface TotalPriceData {
+  name: string;
+  price: string;
+}
+
+export interface PaymentMethods {
+  title: string;
+  handlePress: () => void;
+}
+
+export interface CartItemData {
+  products: ProductWithUnits[];
+  items: number;
+  total: number;
+}
+
+export interface ProductWithUnits extends Product {
+  units: number;
+}
+
+export interface UserData {
+  status: string;
+  msg: string;
+  user: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    dob: string;
+    role: string;
+    createdAt: string;
+  };
+  token: string;
+}
+
+export interface OrderData {
+  orderItems: {
+    product: string;
+    quantity: number;
+  }[];
+  phone: string;
+  country: string;
+  zip: string;
+  city: string;
+  user: string;
+}
+
+export interface Categories {
+  _id: string;
+  name: string;
+  description: string;
+  createdAt: string;
+  __v: number;
 }

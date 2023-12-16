@@ -5,11 +5,9 @@ import styles from "./custombutton.style";
 
 type CustomButtonProps = {
   title: string;
-  staticWidth?: string | number;
   onPress: () => void;
   secondary?: boolean;
   tertiary?: boolean;
-  dynamicWidth?: DimensionValue;
 };
 
 const CustomButton = ({

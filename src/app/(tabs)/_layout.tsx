@@ -1,7 +1,6 @@
 import CustomHeader from "@/components/header/CustomHeader";
 import Search from "@comp/common/Search";
 import BackButton from "@comp/header/BackButton";
-import HeaderTitle from "@comp/header/HeaderTitle";
 import CartIcon from "@comp/tab/CartIcon";
 import CustomTabBar from "@comp/tab/CustomTabBar";
 import FavoriteIcon from "@comp/tab/FavoriteIcon";

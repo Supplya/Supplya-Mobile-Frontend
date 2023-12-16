@@ -1,8 +1,6 @@
-import { Text, View } from "react-native";
 import { Stack, router } from "expo-router";
 import BackButton from "@/components/header/BackButton";
-import { COLORS, FONTS, SIZES } from "@const/theme";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { COLORS } from "@const/theme";
 import Search from "@/components/common/Search";
 import { globalStyles } from "styles/global";
 
@@ -13,6 +11,7 @@ export default function MoreLayout() {
         headerTitleAlign: "center",
         headerLeft: () => <BackButton onPress={router.back} />,
         headerShadowVisible: false,
+        headerBackVisible: false,
         headerStyle: { backgroundColor: COLORS.offWhite },
         headerRight: () => <Search />,
         headerTitleStyle: {
@@ -38,7 +37,12 @@ export default function MoreLayout() {
           title: "Popular Deals",
         }}
       />
-      <Stack.Screen name="[id]" />
+      <Stack.Screen
+        name="[id]"
+        options={{
+          title: "",
+        }}
+      />
     </Stack>
   );
 }

@@ -1,3 +1,8 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CartItemData, OrderData } from "./types";
+import axios from "axios";
+import useCartStore from "store/cartStore";
+
 export function separateAtWhitespace(name: string) {
   if (name !== undefined) {
     const spaceIndex = name.indexOf(" ");
@@ -21,3 +26,13 @@ export function separateAtWhitespace(name: string) {
   }
   return { firstName: "" };
 }
+
+export const setCartItems = async (cartData: CartItemData) => {
+  try {
+    const serializedProducts = JSON.stringify(cartData);
+    await AsyncStorage.setItem("cartItems", serializedProducts);
+    console.log("cart items saved successfully");
+  } catch (e) {
+    console.log("Error occured:", e);
+  }
+};

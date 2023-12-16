@@ -1,31 +1,23 @@
 import { Text, View, TouchableOpacity } from "react-native";
 import React, { useCallback, useState, useEffect } from "react";
-import Minus from "../Minus";
-import Plus from "../Plus";
+import Minus from "@comp/common/Minus";
+import Plus from "@comp/common/Plus";
 import { COLORS } from "@const/theme";
 import { globalStyles } from "styles/global";
 import styles from "./quantitypicker.style";
 import useCartStore from "store/cartStore";
-import { Product } from "utils/types";
+import { Product, ProductWithUnits } from "utils/types";
 
-interface QuantityPickerProps {
-  product: Product;
+interface CartItemProps {
+  product: ProductWithUnits;
 }
-const QuantityPicker = ({ product }: QuantityPickerProps) => {
-  const { addProduct, reduceProduct, products } = useCartStore();
+const CartItemCounter = ({ product }: CartItemProps) => {
+  const { addProduct, reduceProduct } = useCartStore();
   const [isDisabled, setIsDisabled] = useState(false);
 
-  // use useEffect or useLayoutEffect instead
-  const findProduct = useCallback(
-    () => products.find((p) => p?._id === product?._id),
-    [products]
-  );
-
-  const currentProduct = findProduct();
-
   useEffect(() => {
-    setIsDisabled(!currentProduct?.units);
-  }, [products]);
+    setIsDisabled(!product?.units);
+  }, [product]);
 
   return (
     <View style={styles.container}>
@@ -38,7 +30,7 @@ const QuantityPicker = ({ product }: QuantityPickerProps) => {
       </TouchableOpacity>
       <View style={styles.countView}>
         <Text style={[globalStyles.fontBold16, { color: COLORS.labelDark }]}>
-          {currentProduct?.units || 0}
+          {product?.units || 0}
         </Text>
       </View>
       <TouchableOpacity
@@ -51,4 +43,4 @@ const QuantityPicker = ({ product }: QuantityPickerProps) => {
   );
 };
 
-export default QuantityPicker;
+export default CartItemCounter;

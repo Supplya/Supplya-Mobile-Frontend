@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
@@ -23,6 +24,8 @@ import { Link, router } from "expo-router";
 import { separateAtWhitespace } from "utils";
 import axios, { AxiosRequestConfig } from "axios";
 import { DataParams } from "utils/types";
+import * as SecureStore from "expo-secure-store";
+import useAuthStore from "store/authStore";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -38,11 +41,10 @@ const SignUp = () => {
   const { handleSubmit, control, reset, watch } = useForm();
   const pwd = watch("password");
 
+  const { setUser } = useAuthStore();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [responseData, setResponseData] = useState<Record<
-    string,
-    string
-  > | null>(null);
+
   const [error, setError] = useState("");
 
   const handleSignUp = async (data: DataParams) => {
@@ -60,8 +62,6 @@ const SignUp = () => {
       dob: "2022-12-10",
     };
 
-    console.log(bodyData);
-
     const config: AxiosRequestConfig = {
       method: "post",
       maxBodyLength: Infinity,
@@ -77,14 +77,40 @@ const SignUp = () => {
     axios
       .request(config)
       .then((response) => {
-        setResponseData(response.data);
-        console.log(
-          "🚀 ~ file: index.ts:39 ~ .then ~ response.data:",
-          response.data
-        );
+        const userData = response.data;
+        const serializedData = JSON.stringify(userData);
+
+        // Store user information in secure storage
+        SecureStore.setItemAsync("userData", serializedData);
+
+        setUser(userData);
+        router.push("/home");
       })
       .catch((error) => {
-        console.error("Axios request error:", error);
+        if (error.response.data.msg === "Email Already Exists") {
+          Alert.alert(
+            "Email Already Exists!",
+            "Please provide with another email"
+          );
+        }
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(
+            "Server responded with a non-success status:",
+            error.response.status
+          );
+          console.log("Response data:", error.response.data);
+          console.log("Response headers:", error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log("No response received from the server");
+          console.log("Request data:", error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error setting up the request:", error.message);
+        }
+        console.log("Error config:", error.config);
         setError(error);
       })
       .finally(() => {
@@ -229,7 +255,7 @@ const SignUp = () => {
               rules={{
                 required: "Password is required",
                 minLength: {
-                  value: 8,
+                  value: 4,
                   message: "Password is too short",
                 },
               }}
@@ -248,12 +274,7 @@ const SignUp = () => {
             />
           </View>
 
-          <View>
-            <CustomButton
-              title="Sign Up"
-              onPress={handleSubmit(handleSignUp)}
-            />
-          </View>
+          <CustomButton title="Sign Up" onPress={handleSubmit(handleSignUp)} />
           <View style={styles.loginView}>
             <Text style={styles.haveAccountText}>Already have an account?</Text>
             <Link href="/login" asChild>

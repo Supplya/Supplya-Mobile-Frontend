@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { useState, useEffect } from "react";
-import { Product } from "utils/types";
+import useAuthStore from "store/authStore";
 
 type RequestMethod = "post" | "get" | "put" | "delete";
 
@@ -10,16 +10,19 @@ export interface RequestParams {
   maxBodyLength?: number;
 }
 
-const useFetchProduct = (options: RequestParams) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [data, setData] = useState<Product>(undefined);
+const useFetch = <T>(options: RequestParams) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [data, setData] = useState<T>(undefined);
   const [error, setError] = useState<string>();
+
+  const { user } = useAuthStore();
+
+  const apiToken = user.token;
 
   const config: AxiosRequestConfig = {
     ...options,
     headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2NTU2NGFlYjc3MDY4YTAwMWNhODY5ZmEiLCJmaXJzdE5hbWUiOiJkYXZpZCIsImxhc3ROYW1lIjoib3N1Y2h1a3d1IiwicGhvbmVOdW1iZXIiOiIwOTAxODA2NjY5NjQiLCJ1bmlxdWVLZXkiOjkyOTIsImVtYWlsIjoib3N1Y2h1a3d1ZGF2aWRAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJjcmVhdGVkQXQiOiIyMDIzLTExLTE2VDE3OjAxOjMxLjM0NVoiLCJkb2IiOiIxOTk5LTEyLTEwVDAwOjAwOjAwLjAwMFoiLCJpYXQiOjE3MDAxNzcxMjksImV4cCI6MTczMTcxMzEyOX0.viT8AQ3YqrHktOC9ILuD_KwfHPFFf39PnA2dtawIqQk",
+      Authorization: `Bearer ${apiToken}`,
     },
   };
 
@@ -52,4 +55,4 @@ const useFetchProduct = (options: RequestParams) => {
   return { data, isLoading, error, fetchData };
 };
 
-export default useFetchProduct;
+export default useFetch;
