@@ -7,9 +7,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
-  Alert,
+  TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import {
   heightPercentageToDP as hp,
@@ -20,12 +20,15 @@ import CustomInput from "@/components/common/CustomInput";
 import { StatusBar } from "expo-status-bar";
 import { useForm } from "react-hook-form";
 import CustomButton from "@/components/common/CustomButton";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import { separateAtWhitespace } from "utils";
-import axios, { AxiosRequestConfig } from "axios";
 import { DataParams } from "utils/types";
-import * as SecureStore from "expo-secure-store";
 import useAuthStore from "store/authStore";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import {
+  DateTimePickerAndroid,
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -41,11 +44,11 @@ const SignUp = () => {
   const { handleSubmit, control, reset, watch } = useForm();
   const pwd = watch("password");
 
-  const { setUser } = useAuthStore();
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { signUp, isLoading } = useAuthStore();
 
   const [error, setError] = useState("");
+
+  const [date, setDate] = useState<Date>();
 
   const handleSignUp = async (data: DataParams) => {
     const { firstName, lastName } = separateAtWhitespace(data?.name);
@@ -53,71 +56,35 @@ const SignUp = () => {
     if (lastName.length <= 4) {
       throw alert("Last Name need to be at least 5 characters long");
     }
+    if (!date) {
+      return setError("Date of Birth is required");
+    }
     const bodyData = {
       firstName: firstName,
       lastName: lastName,
       phoneNumber: "0" + data.phoneNumber,
       email: data.email,
       password: data.password,
-      dob: "2022-12-10",
+      dob: date?.toLocaleDateString("en-CA"),
     };
 
-    const config: AxiosRequestConfig = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "https://supplya.cyclic.app/api/v1/auth/register",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer supplyaToken",
-      },
-      data: bodyData,
-    };
-
-    setIsLoading(true);
-    axios
-      .request(config)
-      .then((response) => {
-        const userData = response.data;
-        const serializedData = JSON.stringify(userData);
-
-        // Store user information in secure storage
-        SecureStore.setItemAsync("userData", serializedData);
-
-        setUser(userData);
-        router.push("/home");
-      })
-      .catch((error) => {
-        if (error.response.data.msg === "Email Already Exists") {
-          Alert.alert(
-            "Email Already Exists!",
-            "Please provide with another email"
-          );
-        }
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(
-            "Server responded with a non-success status:",
-            error.response.status
-          );
-          console.log("Response data:", error.response.data);
-          console.log("Response headers:", error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          console.log("No response received from the server");
-          console.log("Request data:", error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log("Error setting up the request:", error.message);
-        }
-        console.log("Error config:", error.config);
-        setError(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-
+    signUp(bodyData);
     Keyboard.dismiss();
+  };
+
+  const openDatePicker = () => {
+    DateTimePickerAndroid.open({
+      mode: "date",
+      value: new Date(),
+      onChange: handleDateChange,
+      maximumDate: new Date(),
+      minimumDate: new Date(1920, 1, 1),
+    });
+  };
+
+  const handleDateChange = (event: DateTimePickerEvent, selectedDate: Date) => {
+    console.log(event);
+    setDate(selectedDate);
   };
 
   return (
@@ -198,28 +165,24 @@ const SignUp = () => {
                 },
               }}
             />
-            <View
-              style={{
-                flexDirection: "row",
-                width: "100%",
-                gap: 15,
-              }}
-            >
-              <CustomInput
-                title="+234"
-                control={control}
-                name="countryCode"
-                type="countryCode"
-                pairInput
-                rules={{
-                  required: "Country code is required",
-                  pattern: {
-                    value: countryCodeRegex,
-                    message: "Country code is invalid",
-                  },
-                }}
-                flex={0.3}
-              />
+            <View style={styles.phoneNumberView}>
+              <TouchableOpacity style={styles.countryCode}>
+                <Text
+                  style={{
+                    fontFamily: FONTS.regular,
+                    color: COLORS.gray4,
+                    fontSize: wp(SIZES.medium),
+                    paddingVertical: 19,
+                  }}
+                >
+                  +234
+                </Text>
+                <Ionicons
+                  name="chevron-down"
+                  size={wp(SIZES.medium)}
+                  color={COLORS.gray4}
+                />
+              </TouchableOpacity>
               <CustomInput
                 title="Phone Number"
                 control={control}
@@ -236,6 +199,37 @@ const SignUp = () => {
                 }}
               />
             </View>
+            <View
+              style={{
+                marginBottom: 15,
+                alignItems: "flex-start",
+                alignSelf: "flex-start",
+              }}
+            >
+              <TouchableOpacity
+                style={[
+                  styles.datepicker,
+                  { borderColor: error ? COLORS.systemRed : COLORS.gray4 },
+                ]}
+                onPress={openDatePicker}
+              >
+                <Text
+                  style={[
+                    styles.dobText,
+                    { color: date ? COLORS.dark : COLORS.gray4 },
+                  ]}
+                >
+                  {date ? date?.toLocaleDateString("en-CA") : "Select DOB"}
+                </Text>
+                <Ionicons
+                  name="calendar-outline"
+                  size={24}
+                  color={COLORS.gray4}
+                />
+              </TouchableOpacity>
+              {error && <Text style={styles.error}>{error}</Text>}
+            </View>
+
             <CustomInput
               title="Email Address"
               control={control}
@@ -324,6 +318,44 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     marginVertical: 15,
+  },
+  phoneNumberView: {
+    flexDirection: "row",
+    width: "100%",
+    gap: 15,
+  },
+  countryCode: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    flex: 0.3,
+    borderColor: COLORS.gray4,
+    marginBottom: 15,
+    borderRadius: 8,
+    gap: 5,
+    alignSelf: "flex-start",
+  },
+  datepicker: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    borderWidth: 2,
+    borderRadius: 8,
+    borderColor: COLORS.gray4,
+    paddingHorizontal: 8,
+    paddingVertical: 7,
+    gap: 8,
+  },
+  error: {
+    alignSelf: "flex-start",
+    fontFamily: FONTS.regular,
+    fontSize: wp(SIZES.small),
+    color: COLORS.orange,
+  },
+  dobText: {
+    fontFamily: FONTS.regular,
+    fontSize: wp(SIZES.small),
   },
   loginView: {
     flexDirection: "row",

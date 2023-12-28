@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
   inputView: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 8,
-    borderColor: COLORS.gray5,
+    borderColor: COLORS.gray4,
   },
   input: {
     paddingHorizontal: 16,

@@ -7,6 +7,13 @@ export interface RequestParams {
   data?: Record<string, string>;
 }
 
+export interface PostParams<T> {
+  method: RequestMethod;
+  url: string;
+  maxBodyLength?: number;
+  data: T;
+}
+
 export interface BodyParams {
   firstName: string;
   lastName: string;
@@ -90,7 +97,12 @@ export interface OrderData {
   user: string;
 }
 
-export interface Categories {
+export interface CatResponse {
+  status: string;
+  categories: Category[];
+}
+
+export interface Category {
   _id: string;
   name: string;
   description: string;

@@ -51,4 +51,5 @@ export const COLORS = {
   labelWhite: "#F8F8F8",
   tertiaryGray: "#EFEFF0",
   separatorGray: "#C6C6C8",
+  seeThrough: "rgba(0,0,0,0.2)",
 };

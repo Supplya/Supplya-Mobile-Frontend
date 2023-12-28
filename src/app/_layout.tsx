@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import useCartStore from "store/cartStore";
 import useAuthStore from "store/authStore";
+import AuthUser from "context/authContext";
 
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
@@ -39,15 +40,17 @@ export default function RootLayout() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <Stack
-        screenOptions={{
-          headerShadowVisible: false,
-          headerTitle: "",
-          headerShown: false,
-          statusBarStyle: "dark",
-          statusBarTranslucent: true,
-        }}
-      />
+      <AuthUser>
+        <Stack
+          screenOptions={{
+            headerShadowVisible: false,
+            headerTitle: "",
+            headerShown: false,
+            statusBarStyle: "dark",
+            statusBarTranslucent: true,
+          }}
+        />
+      </AuthUser>
     </View>
   );
 }

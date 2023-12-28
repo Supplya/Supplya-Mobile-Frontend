@@ -56,8 +56,6 @@ export default function TabLayout() {
         <Tabs.Screen
           name="home"
           options={{
-            // headerRight: () => <Search style={{ marginRight: 20 }} />,
-            // headerTitle: () => <HeaderTitle />,
             header: (props) => <CustomHeader />,
             headerStyle: { backgroundColor: COLORS.offWhite },
             headerShadowVisible: false,

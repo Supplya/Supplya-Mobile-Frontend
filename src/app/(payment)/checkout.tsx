@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   View,
   Alert,
+  Modal,
+  ActivityIndicator,
 } from "react-native";
 import React, { useRef, useState, useCallback } from "react";
 import { COLORS, SIZES } from "@const/theme";
@@ -15,66 +17,39 @@ import { router } from "expo-router";
 import { globalStyles } from "styles/global";
 import CustomButton from "@comp/common/CustomButton";
 import TotalPrice from "@comp/common/TotalPrice";
-import { OrderData } from "utils/types";
+import { OrderData, PostParams } from "utils/types";
 import CheckoutCard from "@comp/checkout/CheckoutCard";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { paymentMethods } from "assets/data";
 import useCartStore from "store/cartStore";
 import useAuthStore from "store/authStore";
-import axios from "axios";
+import { Paystack, paystackProps } from "react-native-paystack-webview";
+import { createOrder } from "utils";
 
 const Checkout = () => {
+  // Store variables
   const { products, items, total, clearCart } = useCartStore();
   const { user } = useAuthStore();
 
-  const footerRef = useRef<View>(null);
+  // State variables
   const [footerHeight, setFooterHeight] = useState<number>(0);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const createOrder = () => {
-    const orderItems = [
-      ...products.map((item) => ({ product: item._id, quantity: item.units })),
-    ];
+  // useRef variables
+  const footerRef = useRef<View>(null);
+  const paystackRef = useRef<paystackProps.PayStackRef>(null);
 
-    const orderData: OrderData = {
-      orderItems,
-      phone: user.user.phoneNumber,
-      country: "Nigeria",
-      zip: "501721",
-      city: "Abuja",
-      user: user.user._id,
-    };
-
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "https://supplya.cyclic.app/api/v1/orders/create",
-      // prettier-ignore
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization":
-          `Bearer ${user.token}`,
-      },
-      data: orderData,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        clearCart();
-        console.log("Order created successfully");
-        console.log(JSON.stringify(response.data));
-        router.push("/order-success");
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.response) {
-          console.error("Response Status:", error.response.status);
-          console.error("Response Headers:", error.response.headers);
-          console.error("Response Data:", error.response.data);
-          return Alert.alert("Error", error.response.data.msg);
-        }
-        Alert.alert("Error", "Something went wrong");
-      });
+  // order data
+  const orderItems = [
+    ...products.map((item) => ({ product: item._id, quantity: item.units })),
+  ];
+  const orderData: OrderData = {
+    orderItems,
+    phone: user.user.phoneNumber,
+    country: "Nigeria",
+    zip: "501721",
+    city: "Abuja",
+    user: user.user._id,
   };
 
   const handleFooterLayout = useCallback(() => {
@@ -85,15 +60,51 @@ const Checkout = () => {
 
   return (
     <View style={styles.container}>
+      <Modal visible={isVisible} statusBarTranslucent transparent>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: COLORS.seeThrough,
+          }}
+        >
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      </Modal>
+
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1, width: "100%", gap: 15, paddingBottom: footerHeight }}
+        style={{
+          flex: 1,
+          width: "100%",
+          gap: wp(SIZES.extraSmall),
+          paddingBottom: footerHeight + wp(SIZES.extraSmall),
+        }}
       >
+        <Paystack
+          paystackKey="pk_test_58c4e5396a1b0b3f3d3c9e0100d0b1348affa82d"
+          amount={total.toString()}
+          billingEmail={user?.user.email}
+          activityIndicatorColor={COLORS.red}
+          onCancel={(e) => {
+            console.log("Canceled", e);
+            router.back();
+          }}
+          onSuccess={async (res) => {
+            console.log("Success", res);
+            setIsVisible(true);
+            await createOrder(user?.token, orderData, clearCart);
+            setIsVisible(false);
+          }}
+          // @ts-expect-error
+          ref={paystackRef}
+        />
         <FlatList
           data={products}
           contentContainerStyle={{
             padding: wp(SIZES.medium),
-            gap: 15,
+            gap: wp(SIZES.medium),
           }}
           renderItem={({ item }) => (
             <CheckoutCard name={item.name} units={item.units} />
@@ -110,7 +121,10 @@ const Checkout = () => {
           </TouchableOpacity>
         </View>
         <View
-          style={{ gap: wp(SIZES.medium), paddingHorizontal: wp(SIZES.medium) }}
+          style={{
+            gap: wp(SIZES.verySmall),
+            paddingHorizontal: wp(SIZES.medium),
+          }}
         >
           {paymentMethods?.map((item, index) => (
             <TouchableOpacity
@@ -136,7 +150,7 @@ const Checkout = () => {
             <CustomButton
               title="Pay Now"
               onPress={() => {
-                createOrder();
+                paystackRef.current?.startTransaction();
               }}
             />
           </View>

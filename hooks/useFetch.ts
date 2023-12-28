@@ -1,14 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { useState, useEffect } from "react";
 import useAuthStore from "store/authStore";
-
-type RequestMethod = "post" | "get" | "put" | "delete";
-
-export interface RequestParams {
-  method: RequestMethod;
-  url: string;
-  maxBodyLength?: number;
-}
+import { RequestParams } from "utils/types";
 
 const useFetch = <T>(options: RequestParams) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

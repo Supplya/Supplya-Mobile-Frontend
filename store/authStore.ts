@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { UserData } from "utils/types";
 import { create } from "zustand";
 import * as SecureStore from "expo-secure-store";
+import { router } from "expo-router";
 
 interface SignUpDetails {
   firstName: string;
@@ -63,12 +64,14 @@ const useAuthStore = create<AuthStore>()((set) => ({
         // Store user information in secure storage
         SecureStore.setItemAsync("userData", serializedData);
         set({ user: userData, isLoading: false });
+        set({ isLoading: false });
+        router.push("/home");
       })
       .catch((error) => {
         console.log(error);
         set({ error: error });
+        set({ isLoading: false });
       });
-    set({ isLoading: false });
   },
   signIn: (data: LoginDetails) => {
     // Set loading to true before making the request

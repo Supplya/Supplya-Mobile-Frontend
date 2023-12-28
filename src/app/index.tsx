@@ -40,7 +40,7 @@ export default function Page() {
           <Text>Checkout</Text>
         </TouchableOpacity>
       </Link>
-      <Link href="/Details" asChild>
+      <Link href="/656d943707b4de31d0370aa3" asChild>
         <TouchableOpacity style={styles.button}>
           <Text>Details</Text>
         </TouchableOpacity>

@@ -1,19 +1,13 @@
 import { StyleSheet, View } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { COLORS } from "@const/theme";
 import Categories from "@/components/home/Categories";
 import SpecialDeals from "@/components/home/SpecialDeals";
 import PopularDeals from "@/components/home/PopularDeals";
-import useAuthStore from "store/authStore";
 
 const Home = () => {
-  const { user } = useAuthStore();
-
-  useEffect(() => {
-    console.log("🚀 ~ file: home.tsx:13 ~ Home ~ user:", user);
-  }, [user]);
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingTop: 20, paddingBottom: 60 }}>

@@ -5,7 +5,7 @@ import styles from "./custombutton.style";
 
 type CustomButtonProps = {
   title: string;
-  onPress: () => void;
+  onPress: () => void | Promise<void>;
   secondary?: boolean;
   tertiary?: boolean;
 };

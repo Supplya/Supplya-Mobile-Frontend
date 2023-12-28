@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import { COLORS, FONTS, SIZES } from "@const/theme";
 import {
@@ -8,7 +14,6 @@ import {
 import { Controller } from "react-hook-form";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./custominput.style";
-import { TextInput } from "react-native-paper";
 
 const CustomInput = ({
   title,
@@ -39,7 +44,7 @@ const CustomInput = ({
         }) => {
           return (
             <>
-              {/* <View
+              <View
                 style={[
                   styles.inputView,
                   {
@@ -50,21 +55,56 @@ const CustomInput = ({
                       : COLORS.gray5,
                   },
                 ]}
-              > */}
-              {type === "password" ? (
-                <>
+              >
+                {type === "password" ? (
+                  <>
+                    <TextInput
+                      placeholder={title}
+                      // outlineColor={error ? COLORS.red : COLORS.gray}
+                      // activeOutlineColor={error ? COLORS.red : COLORS.primary}
+                      selectionColor={COLORS.primary}
+                      // outlineStyle={{ borderRadius: 8 }}
+                      style={styles.input}
+                      onChangeText={onChange}
+                      autoCapitalize="none"
+                      keyboardType={!isVisible ? "default" : "visible-password"}
+                      secureTextEntry={!isVisible}
+                      onBlur={() => {
+                        setIsFocused(false);
+                        onBlur();
+                      }}
+                      onFocus={() => {
+                        setIsFocused(true);
+                      }}
+                      value={value}
+                    />
+                    <TouchableOpacity
+                      style={{ marginRight: 16 }}
+                      onPress={toggleVisibility}
+                    >
+                      <Ionicons
+                        name={
+                          isVisible ? "md-eye-off-outline" : "md-eye-outline"
+                        }
+                        size={20}
+                        color={COLORS.gray}
+                      />
+                    </TouchableOpacity>
+                  </>
+                ) : type === "phoneNumber" ? (
                   <TextInput
-                    mode="outlined"
-                    label={title}
-                    outlineColor={error ? COLORS.red : COLORS.gray}
-                    activeOutlineColor={error ? COLORS.red : COLORS.primary}
+                    // mode="outlined"
+                    placeholder={title}
+                    // outlineColor={error ? COLORS.red : COLORS.gray}
+                    // activeOutlineColor={error ? COLORS.red : COLORS.primary}
                     selectionColor={COLORS.primary}
-                    outlineStyle={{ borderRadius: 8 }}
-                    // style={styles.input}
+                    // outlineStyle={{ borderRadius: 8 }}
+                    style={styles.input}
+                    maxLength={11}
+                    keyboardType="phone-pad"
                     onChangeText={onChange}
-                    autoCapitalize="none"
-                    keyboardType={!isVisible ? "default" : "visible-password"}
-                    secureTextEntry={!isVisible}
+                    textContentType="telephoneNumber"
+                    secureTextEntry={secureTextEntry}
                     onBlur={() => {
                       setIsFocused(false);
                       onBlur();
@@ -74,82 +114,48 @@ const CustomInput = ({
                     }}
                     value={value}
                   />
-                  <TouchableOpacity
-                    style={{ marginRight: 16 }}
-                    onPress={toggleVisibility}
-                  >
-                    <Ionicons
-                      name={isVisible ? "md-eye-off-outline" : "md-eye-outline"}
-                      size={20}
-                      color={COLORS.gray}
-                    />
-                  </TouchableOpacity>
-                </>
-              ) : type === "phoneNumber" ? (
-                <TextInput
-                  mode="outlined"
-                  label={title}
-                  outlineColor={error ? COLORS.red : COLORS.gray}
-                  activeOutlineColor={error ? COLORS.red : COLORS.primary}
-                  selectionColor={COLORS.primary}
-                  outlineStyle={{ borderRadius: 8 }}
-                  // style={styles.input}
-                  maxLength={11}
-                  keyboardType="phone-pad"
-                  onChangeText={onChange}
-                  textContentType="telephoneNumber"
-                  secureTextEntry={secureTextEntry}
-                  onBlur={() => {
-                    setIsFocused(false);
-                    onBlur();
-                  }}
-                  onFocus={() => {
-                    setIsFocused(true);
-                  }}
-                  value={value}
-                />
-              ) : type === "email" ? (
-                <TextInput
-                  mode="outlined"
-                  label={title}
-                  outlineColor={error ? COLORS.red : COLORS.gray}
-                  activeOutlineColor={error ? COLORS.red : COLORS.primary}
-                  selectionColor={COLORS.primary}
-                  outlineStyle={{ borderRadius: 8 }}
-                  // style={styles.input}
-                  onChangeText={onChange}
-                  keyboardType="email-address"
-                  textContentType="emailAddress"
-                  onBlur={() => {
-                    setIsFocused(false);
-                    onBlur();
-                  }}
-                  onFocus={() => {
-                    setIsFocused(true);
-                  }}
-                  value={value}
-                />
-              ) : (
-                <TextInput
-                  mode="outlined"
-                  label={title}
-                  outlineColor={error ? COLORS.red : COLORS.gray}
-                  activeOutlineColor={error ? COLORS.red : COLORS.primary}
-                  selectionColor={COLORS.primary}
-                  outlineStyle={{ borderRadius: 8 }}
-                  // style={styles.input}
-                  onChangeText={onChange}
-                  onBlur={() => {
-                    setIsFocused(false);
-                    onBlur();
-                  }}
-                  onFocus={() => {
-                    setIsFocused(true);
-                  }}
-                  value={value}
-                />
-              )}
-              {/* </View> */}
+                ) : type === "email" ? (
+                  <TextInput
+                    // mode="outlined"
+                    placeholder={title}
+                    // outlineColor={error ? COLORS.red : COLORS.gray}
+                    // activeOutlineColor={error ? COLORS.red : COLORS.primary}
+                    selectionColor={COLORS.primary}
+                    // outlineStyle={{ borderRadius: 8 }}
+                    style={styles.input}
+                    onChangeText={onChange}
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
+                    onBlur={() => {
+                      setIsFocused(false);
+                      onBlur();
+                    }}
+                    onFocus={() => {
+                      setIsFocused(true);
+                    }}
+                    value={value}
+                  />
+                ) : (
+                  <TextInput
+                    // mode="outlined"
+                    placeholder={title}
+                    // outlineColor={error ? COLORS.red : COLORS.gray}
+                    // activeOutlineColor={error ? COLORS.red : COLORS.primary}
+                    // selectionColor={COLORS.primary}
+                    // outlineStyle={{ borderRadius: 8 }}
+                    style={styles.input}
+                    onChangeText={onChange}
+                    onBlur={() => {
+                      setIsFocused(false);
+                      onBlur();
+                    }}
+                    onFocus={() => {
+                      setIsFocused(true);
+                    }}
+                    value={value}
+                  />
+                )}
+              </View>
               {error && error?.ref.name !== "countryCode" && (
                 <Text style={styles.error} numberOfLines={1}>
                   {error && error.message}

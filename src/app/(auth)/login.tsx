@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form";
 import CustomButton from "@/components/common/CustomButton";
 import { Link, router } from "expo-router";
 import useAuthStore from "store/authStore";
+import { UserData } from "utils/types";
 
 const phoneOrEmailRegex =
   /^(\+234|0)[789]\d{9}$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
