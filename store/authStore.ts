@@ -2,7 +2,6 @@ import axios, { AxiosResponse } from "axios";
 import { UserData } from "utils/types";
 import { create } from "zustand";
 import * as SecureStore from "expo-secure-store";
-import { router } from "expo-router";
 
 interface SignUpDetails {
   firstName: string;
@@ -22,10 +21,11 @@ export interface AuthStore {
   isLoading: boolean;
   user: UserData | null;
   setUser: (userData: UserData) => void;
-  error: Error | null;
+  error: string;
+  clearError: () => void;
   signUp: (data: SignUpDetails) => void;
   signIn: (data: LoginDetails) => void;
-  signOut: () => void;
+  signOut: () => Promise<void>;
   setIsLoading: (isLoading: boolean) => void;
   getUserData: () => void;
 }
@@ -35,7 +35,7 @@ const apiKey = "supplyaToken";
 const useAuthStore = create<AuthStore>()((set) => ({
   isLoading: false,
   user: null,
-  error: null,
+  error: "",
   setUser: (userData: UserData) => {
     set({ user: userData });
   },
@@ -64,19 +64,20 @@ const useAuthStore = create<AuthStore>()((set) => ({
         // Store user information in secure storage
         SecureStore.setItemAsync("userData", serializedData);
         set({ user: userData, isLoading: false });
-        set({ isLoading: false });
-        router.push("/home");
       })
       .catch((error) => {
         console.log(error);
-        set({ error: error });
+        if (error.response) {
+          console.error("Response Data:", error.response.data);
+          set({ error: error.response.data.msg });
+        }
         set({ isLoading: false });
       });
   },
   signIn: (data: LoginDetails) => {
     // Set loading to true before making the request
     set({ isLoading: true });
-
+    console.log("signin function called");
     let config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -96,16 +97,21 @@ const useAuthStore = create<AuthStore>()((set) => ({
 
         // Store user information in secure storage
         SecureStore.setItemAsync("userData", serializedData);
-        set({ user: userData, isLoading: false });
+        set({ user: userData });
+        set({ isLoading: false });
       })
       .catch((error) => {
         console.log(error);
-        set({ error: error });
+        if (error.response) {
+          console.error("Response Data:", error.response.data);
+          set({ error: error.response.data.msg });
+        }
+        set({ isLoading: false });
       });
-    set({ isLoading: false });
   },
-  signOut: () => {
+  signOut: async () => {
     set({ user: null });
+    await SecureStore.deleteItemAsync("userData");
   },
   setIsLoading: (loading) => {
     set({ isLoading: loading });
@@ -126,6 +132,9 @@ const useAuthStore = create<AuthStore>()((set) => ({
     } catch (error) {
       console.log("Error occured getting user data:", error);
     }
+  },
+  clearError: () => {
+    set({ error: null });
   },
 }));
 

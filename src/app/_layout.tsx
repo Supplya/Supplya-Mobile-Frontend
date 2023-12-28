@@ -5,9 +5,15 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import useCartStore from "store/cartStore";
 import useAuthStore from "store/authStore";
-import AuthUser from "context/authContext";
+import AuthUser from "auth";
 
 SplashScreen.preventAutoHideAsync();
+
+export const unstable_settings = {
+  // Ensure any route can link back to `/`
+  initialRouteName: "login",
+};
+
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
     nunitoLight: require("assets/fonts/Nunito-Light.ttf"),
@@ -39,8 +45,8 @@ export default function RootLayout() {
   }
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <AuthUser>
+    <AuthUser>
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         <Stack
           screenOptions={{
             headerShadowVisible: false,
@@ -50,7 +56,7 @@ export default function RootLayout() {
             statusBarTranslucent: true,
           }}
         />
-      </AuthUser>
-    </View>
+      </View>
+    </AuthUser>
   );
 }

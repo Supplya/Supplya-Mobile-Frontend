@@ -8,8 +8,9 @@ import {
   Platform,
   Modal,
   ActivityIndicator,
+  Alert,
 } from "react-native";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import {
   heightPercentageToDP as hp,
@@ -20,28 +21,32 @@ import CustomInput from "@/components/common/CustomInput";
 import { StatusBar } from "expo-status-bar";
 import { useForm } from "react-hook-form";
 import CustomButton from "@/components/common/CustomButton";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import useAuthStore from "store/authStore";
-import { UserData } from "utils/types";
 
 const phoneOrEmailRegex =
   /^(\+234|0)[789]\d{9}$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Login = () => {
   const { handleSubmit, control, reset } = useForm();
-  const { signIn, isLoading } = useAuthStore();
-  console.log("🚀 ~ file: login.tsx:32 ~ Login ~ isLoading:", isLoading);
+  const { signIn, isLoading, error, clearError } = useAuthStore();
 
   const handleLogin = async (data) => {
-    console.log(data);
     signIn(data);
     Keyboard.dismiss();
-    router.push("/home");
   };
+
+  useLayoutEffect(() => {
+    if (error) {
+      Alert.alert("Error", error, [
+        { text: "OK", onPress: () => clearError() },
+      ]);
+    }
+  }, [error]);
 
   return (
     <View style={styles.container}>
-      <Modal visible={isLoading} transparent>
+      <Modal visible={isLoading} transparent statusBarTranslucent>
         <View style={styles.loading}>
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
@@ -106,7 +111,6 @@ const Login = () => {
             <CustomInput
               title="Password"
               control={control}
-              type="password"
               name="password"
               rules={{
                 required: "Password is required",
@@ -165,6 +169,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: COLORS.seeThrough,
   },
   content: {
     paddingHorizontal: 24,

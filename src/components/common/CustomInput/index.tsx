@@ -21,7 +21,6 @@ const CustomInput = ({
   name,
   secureTextEntry = false,
   flex = 1,
-  type = "",
   rules = {},
   pairInput = false,
 }) => {
@@ -56,10 +55,11 @@ const CustomInput = ({
                   },
                 ]}
               >
-                {type === "password" ? (
+                {name === "password" || name === "confirmPassword" ? (
                   <>
                     <TextInput
                       placeholder={title}
+                      cursorColor={COLORS.primary}
                       // outlineColor={error ? COLORS.red : COLORS.gray}
                       // activeOutlineColor={error ? COLORS.red : COLORS.primary}
                       selectionColor={COLORS.primary}
@@ -91,10 +91,11 @@ const CustomInput = ({
                       />
                     </TouchableOpacity>
                   </>
-                ) : type === "phoneNumber" ? (
+                ) : name === "phoneNumber" ? (
                   <TextInput
                     // mode="outlined"
                     placeholder={title}
+                    cursorColor={COLORS.primary}
                     // outlineColor={error ? COLORS.red : COLORS.gray}
                     // activeOutlineColor={error ? COLORS.red : COLORS.primary}
                     selectionColor={COLORS.primary}
@@ -114,10 +115,11 @@ const CustomInput = ({
                     }}
                     value={value}
                   />
-                ) : type === "email" ? (
+                ) : name === "email" ? (
                   <TextInput
                     // mode="outlined"
                     placeholder={title}
+                    cursorColor={COLORS.primary}
                     // outlineColor={error ? COLORS.red : COLORS.gray}
                     // activeOutlineColor={error ? COLORS.red : COLORS.primary}
                     selectionColor={COLORS.primary}
@@ -139,6 +141,7 @@ const CustomInput = ({
                   <TextInput
                     // mode="outlined"
                     placeholder={title}
+                    cursorColor={COLORS.primary}
                     // outlineColor={error ? COLORS.red : COLORS.gray}
                     // activeOutlineColor={error ? COLORS.red : COLORS.primary}
                     // selectionColor={COLORS.primary}

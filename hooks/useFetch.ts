@@ -10,7 +10,7 @@ const useFetch = <T>(options: RequestParams) => {
 
   const { user } = useAuthStore();
 
-  const apiToken = user.token;
+  const apiToken = user?.token;
 
   const config: AxiosRequestConfig = {
     ...options,

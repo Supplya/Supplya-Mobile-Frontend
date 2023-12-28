@@ -26,7 +26,9 @@ const ProductTab = ({ activeTab, setActiveTab, tabs }) => {
             </Text>
           </TouchableOpacity>
 
-          {index === 0 && <View style={styles.separator} key="4" />}
+          {index === 0 && (
+            <View style={styles.separator} key={index.toString() + "a"} />
+          )}
         </>
       ))}
     </View>

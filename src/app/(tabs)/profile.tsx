@@ -1,11 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect } from "react";
+import useAuthStore from "store/authStore";
+import CustomButton from "@/components/common/CustomButton";
 
 const Profile = () => {
-  console.log("Profile screen rendered")
+  const { signOut } = useAuthStore();
+
   return (
     <View style={styles.container}>
-      <Text>Wallet</Text>
+      <View style={{ width: "50%" }}>
+        <CustomButton title="Log Out" onPress={signOut} />
+      </View>
     </View>
   );
 };

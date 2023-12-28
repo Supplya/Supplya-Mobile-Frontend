@@ -8,8 +8,10 @@ import {
   Platform,
   ActivityIndicator,
   TouchableOpacity,
+  Modal,
+  Alert,
 } from "react-native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import {
   heightPercentageToDP as hp,
@@ -36,15 +38,12 @@ const EMAIL_REGEX =
 const phoneNumberRegex = /^\d{10}|\d{11}$/;
 /^(?:\+\d{13}|\d{11})$/;
 
-const countryCodeRegex = /^\+\d{1,4}$/;
-
-const url = "https://supplya.cyclic.app/api/v1";
-
 const SignUp = () => {
   const { handleSubmit, control, reset, watch } = useForm();
   const pwd = watch("password");
 
-  const { signUp, isLoading } = useAuthStore();
+  const { signUp, isLoading, clearError } = useAuthStore();
+  console.log("🚀 ~ file: signup.tsx:45 ~ SignUp ~ isLoading:", isLoading);
 
   const [error, setError] = useState("");
 
@@ -54,7 +53,7 @@ const SignUp = () => {
     const { firstName, lastName } = separateAtWhitespace(data?.name);
 
     if (lastName.length <= 4) {
-      throw alert("Last Name need to be at least 5 characters long");
+      return alert("Last Name need to be at least 5 characters long");
     }
     if (!date) {
       return setError("Date of Birth is required");
@@ -87,9 +86,17 @@ const SignUp = () => {
     setDate(selectedDate);
   };
 
+  useLayoutEffect(() => {
+    if (error) {
+      Alert.alert("Error", error, [
+        { text: "OK", onPress: () => clearError() },
+      ]);
+    }
+  }, [error]);
+
   return (
     <View style={styles.container}>
-      {isLoading && (
+      <Modal visible={isLoading} transparent statusBarTranslucent>
         <View
           style={{
             position: "absolute",
@@ -102,7 +109,7 @@ const SignUp = () => {
         >
           <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
-      )}
+      </Modal>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -187,7 +194,6 @@ const SignUp = () => {
                 title="Phone Number"
                 control={control}
                 name="phoneNumber"
-                type="phoneNumber"
                 pairInput
                 flex={1}
                 rules={{
@@ -253,13 +259,11 @@ const SignUp = () => {
                   message: "Password is too short",
                 },
               }}
-              type="password"
             />
             <CustomInput
               title="Confirm Password"
               control={control}
               name="confirmPassword"
-              type="password"
               rules={{
                 required: "Password is required",
                 validate: (value: string) =>
