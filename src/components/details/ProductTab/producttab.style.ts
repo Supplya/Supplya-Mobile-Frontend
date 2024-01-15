@@ -4,7 +4,6 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     width: wp(94),
     alignItems: "center",
@@ -21,6 +20,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    elevation: 5,
+    backgroundColor: COLORS.white,
   },
   text: {
     color: COLORS.labelDark,
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   separator: {
     height: "80%",
     width: 2,
-    backgroundColor: COLORS.separatorGray,
+    backgroundColor: COLORS.gray4,
   },
 });
 

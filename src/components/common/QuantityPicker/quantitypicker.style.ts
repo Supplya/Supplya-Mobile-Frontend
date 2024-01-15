@@ -1,5 +1,6 @@
 import { COLORS } from "@const/theme";
 import { StyleSheet } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   container: {
@@ -8,7 +9,7 @@ const styles = StyleSheet.create({
   },
   countView: {
     paddingHorizontal: 10.88,
-    paddingVertical: 8.5,
+    // paddingVertical: 8.5,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    padding: 8.7, // padding: wp(2.2)
+    padding: wp(2.2), // 8.7
     backgroundColor: COLORS.systemGray,
     borderRadius: 8.7,
     elevation: 1,

@@ -51,7 +51,7 @@ const CustomInput = ({
                       ? COLORS.orange
                       : isFocused
                       ? COLORS.primary
-                      : COLORS.gray5,
+                      : COLORS.gray4,
                   },
                 ]}
               >

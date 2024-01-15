@@ -5,8 +5,8 @@ import styles from "./headertitle.style";
 const HeaderTitle = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Planet Namex 989</Text>
-      <Text style={styles.subtitle}>Norristown, Pennsylvannia, 19403</Text>
+      <Text style={styles.title}>Profile Full Name</Text>
+      <Text style={styles.subtitle}>User Address, Lagos, Nigeria</Text>
     </View>
   );
 };

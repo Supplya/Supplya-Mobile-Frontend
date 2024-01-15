@@ -12,6 +12,10 @@ import HeaderTitle from "@comp/header/HeaderTitle";
 import Search from "@/components/common/Search";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { globalStyles } from "styles/global";
+import { Link } from "expo-router";
+import CartIcon from "@/components/tab/CartIcon";
+import styles from "./customheader.style";
+import Cart from "@/components/details/Cart";
 
 const CustomHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,9 +32,16 @@ const CustomHeader = () => {
       {!isOpen ? (
         <View style={styles.searchView}>
           <HeaderTitle />
-          <TouchableOpacity style={styles.button} onPress={openSearchBar}>
-            <Search />
-          </TouchableOpacity>
+          <View style={styles.iconView}>
+            <Link href="/cart" asChild>
+              <TouchableOpacity style={styles.button}>
+                <Cart />
+              </TouchableOpacity>
+            </Link>
+            <TouchableOpacity style={styles.button} onPress={openSearchBar}>
+              <Search />
+            </TouchableOpacity>
+          </View>
         </View>
       ) : (
         <View style={styles.searchView}>
@@ -48,13 +59,7 @@ const CustomHeader = () => {
             <TextInput
               placeholder="Search for Anything"
               placeholderTextColor={COLORS.gray4}
-              style={{
-                flex: 1,
-                padding: 1,
-                paddingLeft: 8,
-                ...globalStyles.fontRegular14,
-                lineHeight: 22,
-              }}
+              style={styles.input}
             />
           </View>
           <TouchableOpacity onPress={closeSearchBar}>
@@ -67,22 +72,3 @@ const CustomHeader = () => {
 };
 
 export default CustomHeader;
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    backgroundColor: COLORS.offWhite,
-    height: 85,
-    paddingHorizontal: wp(SIZES.medium2),
-    alignItems: "flex-end",
-  },
-  searchView: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 16,
-    width: "100%",
-  },
-  button: {
-    padding: 5,
-  },
-});

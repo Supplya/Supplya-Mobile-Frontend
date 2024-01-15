@@ -103,6 +103,7 @@ const Categories = () => {
                       globalStyles.fontRegular14,
                       {
                         color: COLORS.dark2,
+                        textTransform: "capitalize",
                       },
                     ]}
                   >
@@ -113,6 +114,7 @@ const Categories = () => {
             );
           }}
           horizontal
+          showsHorizontalScrollIndicator={false}
         />
       )}
     </>

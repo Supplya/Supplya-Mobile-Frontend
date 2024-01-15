@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
   },
   line: {
     flex: 1,
-    backgroundColor: COLORS.graySeparator1,
+    backgroundColor: COLORS.gray4,
     width: "100%",
     height: 2,
   },

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   smallGrayText: {
     fontFamily: FONTS.regular,
     fontSize: wp(SIZES.extraSmall),
-    color: COLORS.labelGray1,
+    color: COLORS.gray,
   },
   price: {
     fontFamily: FONTS.bold,

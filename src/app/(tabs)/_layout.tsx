@@ -53,14 +53,7 @@ export default function TabLayout() {
         })}
         tabBar={(props) => <CustomTabBar {...props} />}
       >
-        <Tabs.Screen
-          name="home"
-          options={{
-            header: (props) => <CustomHeader />,
-            headerStyle: { backgroundColor: COLORS.offWhite },
-            headerShadowVisible: false,
-          }}
-        />
+        <Tabs.Screen name="home" />
         <Tabs.Screen
           name="favorite"
           options={{
@@ -76,7 +69,7 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen name="cart" />
-        <Tabs.Screen name="profile" />
+        <Tabs.Screen name="profile" options={{ headerShown: false }} />
       </Tabs>
     </SafeAreaView>
   );

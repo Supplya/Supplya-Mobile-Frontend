@@ -92,7 +92,7 @@ const OrderSummary = () => {
             <View style={styles.inputView}>
               <TextInput
                 placeholder="Enter Promo Code"
-                placeholderTextColor={COLORS.labelGray2}
+                placeholderTextColor={COLORS.gray2}
                 style={styles.input}
               />
               <TouchableOpacity onPress={() => console.log("Pressed")}>
@@ -105,7 +105,7 @@ const OrderSummary = () => {
                 onValueChange={toggleSwitch}
                 value={isEnabled}
                 trackColor={{
-                  false: COLORS.labelGray2,
+                  false: COLORS.gray2,
                   true: COLORS.lightGreen,
                 }}
                 thumbColor={isEnabled ? COLORS.primary : "#f4f3f4"}
@@ -168,11 +168,11 @@ const styles = StyleSheet.create({
   separator: {
     width: "100%",
     height: 1,
-    backgroundColor: COLORS.separatorGray,
+    backgroundColor: COLORS.gray4,
   },
   promoTitle: {
     ...globalStyles.fontRegular16,
-    color: COLORS.labelGray1,
+    color: COLORS.gray,
     alignSelf: "flex-start",
     marginBottom: 8,
   },
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: COLORS.graySeparator2,
+    borderColor: COLORS.gray4,
   },
   input: {
     flex: 1,

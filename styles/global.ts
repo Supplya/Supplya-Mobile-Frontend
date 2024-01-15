@@ -64,4 +64,9 @@ export const globalStyles = StyleSheet.create({
     fontSize: wp(SIZES.medium2),
     color: COLORS.dark2,
   },
+  fontBold24: {
+    fontFamily: FONTS.bold,
+    fontSize: wp(SIZES.large),
+    color: COLORS.dark2,
+  },
 });

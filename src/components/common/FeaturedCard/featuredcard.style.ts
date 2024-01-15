@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   size: {
     fontFamily: FONTS.regular,
     fontSize: wp(SIZES.extraSmall),
-    color: COLORS.labelGray1,
+    color: COLORS.gray,
   },
   priceView: {
     flex: 0.2,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   discount: {
     fontFamily: FONTS.regular,
     fontSize: wp(SIZES.extraSmall),
-    color: COLORS.labelGray1,
+    color: COLORS.gray,
     marginBottom: 5,
   },
   price: {

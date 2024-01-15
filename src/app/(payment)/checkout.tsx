@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   separator: {
     width: "100%",
     height: 1,
-    backgroundColor: COLORS.separatorGray,
+    backgroundColor: COLORS.gray4,
   },
   footer: {
     paddingHorizontal: wp(SIZES.medium),

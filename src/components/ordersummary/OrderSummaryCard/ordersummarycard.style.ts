@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   size: {
     ...globalStyles.fontRegular12,
-    color: COLORS.labelGray1,
+    color: COLORS.gray,
   },
   price: {
     ...globalStyles.fontBold20,

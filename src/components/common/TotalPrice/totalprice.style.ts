@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   name: {
     ...globalStyles.fontRegular16,
-    color: COLORS.labelGray1,
+    color: COLORS.gray,
   },
   price: {
     ...globalStyles.fontBold16,
