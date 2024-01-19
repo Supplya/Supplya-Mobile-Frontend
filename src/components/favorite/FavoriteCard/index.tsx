@@ -2,7 +2,7 @@ import { Text, View, Pressable } from "react-native";
 import React from "react";
 import Animated from "react-native-reanimated";
 import DiscountTag from "@comp/common/DiscountTag";
-import Divider from "@comp/common/Divider";
+import Divider from "@/components/svg/Divider";
 import styles from "./favoritecard.style";
 import CustomButton from "@comp/common/CustomButton";
 

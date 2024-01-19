@@ -1,4 +1,3 @@
-import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 const Plus = () => (
   <Svg width={18} height={18} fill="none">

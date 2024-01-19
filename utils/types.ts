@@ -1,3 +1,5 @@
+import type { StyleProp, ViewStyle } from "react-native";
+
 export type RequestMethod = "post" | "get" | "put" | "delete";
 
 export interface RequestParams {
@@ -108,4 +110,8 @@ export interface Category {
   description: string;
   createdAt: string;
   __v: number;
+}
+
+export interface SVGStyleProps {
+  style?: StyleProp<ViewStyle>;
 }

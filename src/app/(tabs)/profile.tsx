@@ -1,11 +1,12 @@
 import {
   FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import useAuthStore from "store/authStore";
 import CustomButton from "@/components/common/CustomButton";
 import Camera from "@/components/profile/Camera";
@@ -15,6 +16,13 @@ import {
 } from "react-native-responsive-screen";
 import { COLORS, SIZES } from "@const/theme";
 import { globalStyles } from "styles/global";
+import Security from "@svg/Security";
+import ProfileIcon from "@/components/tab/ProfileIcon";
+import Address from "@svg/Address";
+import Notification from "@/components/svg/Notification";
+import Help from "@svg/Help";
+import Logout from "@svg/Logout";
+import ChevronRight from "@svg/ChevronRight";
 
 interface ButtonProps {
   label: string;
@@ -48,11 +56,29 @@ const Profile = () => {
       onPress: () => signOut(),
     },
   ];
+
+  const getIcon = useCallback((label: string) => {
+    switch (label) {
+      case "My Profile":
+        return <ProfileIcon />;
+      case "My Address":
+        return <Address />;
+      case "Notifications":
+        return <Notification />;
+      case "Security Settings":
+        return <Security />;
+      case "Help Centre":
+        return <Help />;
+      case "Log Out":
+        return <Logout />;
+    }
+  }, []);
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View
         style={{
-          height: hp(35),
+          paddingTop: hp(8),
+          paddingBottom: hp(4),
           backgroundColor: COLORS.white,
           width: wp(100),
           alignItems: "center",
@@ -70,7 +96,7 @@ const Profile = () => {
         >
           <Camera style={{ position: "absolute", right: -2, bottom: 0 }} />
         </View>
-        <View style={{ gap: 3, alignItems: "center" }}>
+        <View style={{ gap: 10, alignItems: "center" }}>
           <Text style={{ ...globalStyles.fontBold24 }}>John Doe.</Text>
           <Text style={{ ...globalStyles.fontRegular14, color: COLORS.gray4 }}>
             example@email.com
@@ -78,17 +104,61 @@ const Profile = () => {
         </View>
       </View>
       <View>
-        <FlatList
+        {/* <FlatList
           data={buttons}
-          renderItem={({ item }) => {
-            return <Text>{item.label}</Text>;
+          style={{ width: wp(100) }}
+          contentContainerStyle={{
           }}
-        />
-        <TouchableOpacity>
-          <View></View>
-        </TouchableOpacity>
+          renderItem={({ item }) => {
+            return (
+               */}
+        <View
+          style={{
+            paddingHorizontal: wp(SIZES.medium),
+            paddingVertical: wp(SIZES.medium),
+            gap: wp(SIZES.medium),
+          }}
+        >
+          {buttons.map((item) => (
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                padding: 10,
+                borderRadius: 10,
+                backgroundColor: COLORS.white,
+                alignItems: "center",
+                gap: wp(SIZES.medium),
+                width: "100%",
+              }}
+              onPress={item.onPress}
+            >
+              <View
+                style={{
+                  padding: 10,
+                  borderRadius: 5,
+                  backgroundColor: COLORS.lightGreen,
+                }}
+              >
+                {getIcon(item.label)}
+              </View>
+              <Text
+                style={{
+                  flex: 1,
+                  ...globalStyles.fontBold16,
+                }}
+                ellipsizeMode="tail"
+              >
+                {item.label}
+              </Text>
+              <ChevronRight />
+            </TouchableOpacity>
+          ))}
+        </View>
+        {/* );
+          }}
+        /> */}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -97,6 +167,5 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
   },
 });

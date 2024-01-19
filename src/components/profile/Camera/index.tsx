@@ -2,11 +2,9 @@ import { COLORS } from "@const/theme";
 import * as React from "react";
 import { StyleProp, TouchableOpacity, View, ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { SVGStyleProps } from "utils/types";
 
-interface CameraStyle {
-  style: StyleProp<ViewStyle>;
-}
-const Camera = ({ style }: CameraStyle) => (
+const Camera = ({ style }: SVGStyleProps) => (
   <TouchableOpacity style={style}>
     <View
       style={{ padding: 8, borderRadius: 30, backgroundColor: COLORS.primary }}

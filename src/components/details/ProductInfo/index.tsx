@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import React, { useMemo, useState } from "react";
 import DiscountTag from "@/components/common/DiscountTag";
-import Divider from "@/components/common/Divider";
+import Divider from "@/components/svg/Divider";
 import styles from "./productinfo.style";
 import { Product } from "utils/types";
 import ListItem from "react-native-paper/lib/typescript/components/List/ListItem";

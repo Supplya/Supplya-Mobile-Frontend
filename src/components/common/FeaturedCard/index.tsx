@@ -1,6 +1,6 @@
 import { Text, View, Pressable } from "react-native";
 import React from "react";
-import Divider from "../Divider";
+import Divider from "../../svg/Divider";
 import DiscountTag from "../DiscountTag";
 import styles from "./featuredcard.style";
 import AnimatedPressable from "@comp/common/AnimatedPressable";

@@ -1,7 +1,7 @@
 import { Text, View, TouchableOpacity } from "react-native";
 import React, { useCallback, useState, useEffect } from "react";
-import Minus from "@comp/common/Minus";
-import Plus from "@comp/common/Plus";
+import Minus from "@comp/svg/Minus";
+import Plus from "@comp/svg/Plus";
 import { COLORS } from "@const/theme";
 import { globalStyles } from "styles/global";
 import styles from "./quantitypicker.style";

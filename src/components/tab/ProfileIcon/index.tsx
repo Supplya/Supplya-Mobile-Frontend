@@ -1,6 +1,7 @@
+import { COLORS } from "@const/theme";
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-const ProfileIcon = ({ color }) => (
+const ProfileIcon = ({ color = COLORS.primary }) => (
   <Svg width={20} height={21} fill="none">
     <Path
       fill={color}

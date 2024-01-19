@@ -14,7 +14,8 @@
       "@home/*": ["src/components/home/*"],
       "@onboarding/*": ["src/components/onboarding/*"],
       "@ordersummary/*": ["src/components/ordersummary/*"],
-      "@tab/*": ["src/components/tab/*"]
+      "@tab/*": ["src/components/tab/*"],
+      "@svg/*": ["src/components/svg/*"]
     }
   },
   "extends": "expo/tsconfig.base",
