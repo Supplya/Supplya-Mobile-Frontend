@@ -1,14 +1,6 @@
-import {
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import React, { useCallback, useEffect } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import React from "react";
 import useAuthStore from "store/authStore";
-import CustomButton from "@/components/common/CustomButton";
 import Camera from "@/components/profile/Camera";
 import {
   heightPercentageToDP as hp,
@@ -16,18 +8,9 @@ import {
 } from "react-native-responsive-screen";
 import { COLORS, SIZES } from "@const/theme";
 import { globalStyles } from "styles/global";
-import Security from "@svg/Security";
-import ProfileIcon from "@/components/tab/ProfileIcon";
-import Address from "@svg/Address";
-import Notification from "@/components/svg/Notification";
-import Help from "@svg/Help";
-import Logout from "@svg/Logout";
-import ChevronRight from "@svg/ChevronRight";
+import ProfileButton from "@/components/profile/ProfileButton";
+import { ButtonProps } from "utils/types";
 
-interface ButtonProps {
-  label: string;
-  onPress: () => void;
-}
 const Profile = () => {
   const { signOut } = useAuthStore();
   const buttons: ButtonProps[] = [
@@ -57,50 +40,15 @@ const Profile = () => {
     },
   ];
 
-  const getIcon = useCallback((label: string) => {
-    switch (label) {
-      case "My Profile":
-        return <ProfileIcon />;
-      case "My Address":
-        return <Address />;
-      case "Notifications":
-        return <Notification />;
-      case "Security Settings":
-        return <Security />;
-      case "Help Centre":
-        return <Help />;
-      case "Log Out":
-        return <Logout />;
-    }
-  }, []);
   return (
     <ScrollView style={styles.container}>
-      <View
-        style={{
-          paddingTop: hp(8),
-          paddingBottom: hp(4),
-          backgroundColor: COLORS.white,
-          width: wp(100),
-          alignItems: "center",
-          justifyContent: "center",
-          gap: wp(SIZES.medium),
-        }}
-      >
-        <View
-          style={{
-            height: hp(14),
-            aspectRatio: 1,
-            backgroundColor: COLORS.systemGray,
-            borderRadius: hp(14) / 2,
-          }}
-        >
-          <Camera style={{ position: "absolute", right: -2, bottom: 0 }} />
+      <View style={styles.topView}>
+        <View style={styles.picture}>
+          <Camera style={styles.camera} />
         </View>
-        <View style={{ gap: 10, alignItems: "center" }}>
-          <Text style={{ ...globalStyles.fontBold24 }}>John Doe.</Text>
-          <Text style={{ ...globalStyles.fontRegular14, color: COLORS.gray4 }}>
-            example@email.com
-          </Text>
+        <View style={styles.nameView}>
+          <Text style={styles.name}>John Doe.</Text>
+          <Text style={styles.email}>example@email.com</Text>
         </View>
       </View>
       <View>
@@ -112,46 +60,13 @@ const Profile = () => {
           renderItem={({ item }) => {
             return (
                */}
-        <View
-          style={{
-            paddingHorizontal: wp(SIZES.medium),
-            paddingVertical: wp(SIZES.medium),
-            gap: wp(SIZES.medium),
-          }}
-        >
-          {buttons.map((item) => (
-            <TouchableOpacity
-              style={{
-                flexDirection: "row",
-                padding: 10,
-                borderRadius: 10,
-                backgroundColor: COLORS.white,
-                alignItems: "center",
-                gap: wp(SIZES.medium),
-                width: "100%",
-              }}
+        <View style={styles.buttonContainer}>
+          {buttons?.map((item, index) => (
+            <ProfileButton
+              label={item.label}
               onPress={item.onPress}
-            >
-              <View
-                style={{
-                  padding: 10,
-                  borderRadius: 5,
-                  backgroundColor: COLORS.lightGreen,
-                }}
-              >
-                {getIcon(item.label)}
-              </View>
-              <Text
-                style={{
-                  flex: 1,
-                  ...globalStyles.fontBold16,
-                }}
-                ellipsizeMode="tail"
-              >
-                {item.label}
-              </Text>
-              <ChevronRight />
-            </TouchableOpacity>
+              key={index.toString()}
+            />
           ))}
         </View>
         {/* );
@@ -167,5 +82,41 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  topView: {
+    paddingTop: hp(8),
+    paddingBottom: hp(4),
+    backgroundColor: COLORS.white,
+    width: wp(100),
+    alignItems: "center",
+    justifyContent: "center",
+    gap: wp(SIZES.medium),
+  },
+  picture: {
+    height: hp(14),
+    aspectRatio: 1,
+    backgroundColor: COLORS.systemGray,
+    borderRadius: hp(14) / 2,
+  },
+  camera: {
+    position: "absolute",
+    right: -2,
+    bottom: 0,
+  },
+  nameView: {
+    gap: 10,
+    alignItems: "center",
+  },
+  name: {
+    ...globalStyles.fontBold24,
+  },
+  email: {
+    ...globalStyles.fontRegular14,
+    color: COLORS.gray4,
+  },
+  buttonContainer: {
+    paddingHorizontal: wp(SIZES.medium),
+    paddingVertical: wp(SIZES.medium),
+    gap: wp(SIZES.medium),
   },
 });

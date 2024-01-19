@@ -115,3 +115,8 @@ export interface Category {
 export interface SVGStyleProps {
   style?: StyleProp<ViewStyle>;
 }
+
+export interface ButtonProps {
+  label: string;
+  onPress: () => void;
+}
