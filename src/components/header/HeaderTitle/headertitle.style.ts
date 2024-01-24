@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     fontSize: wp(SIZES.medium),
     color: COLORS.gray,
     marginBottom: 5,
+    textTransform: "capitalize",
   },
   subtitle: {
     fontFamily: FONTS.regular,

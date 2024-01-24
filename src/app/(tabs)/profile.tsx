@@ -10,13 +10,14 @@ import { COLORS, SIZES } from "@const/theme";
 import { globalStyles } from "styles/global";
 import ProfileButton from "@/components/profile/ProfileButton";
 import { ButtonProps } from "utils/types";
+import { router } from "expo-router";
 
-const Profile = () => {
+const Settings = () => {
   const { signOut } = useAuthStore();
   const buttons: ButtonProps[] = [
     {
       label: "My Profile",
-      onPress: () => {},
+      onPress: () => router.push("/(account)/my-profile"),
     },
     {
       label: "My Address",
@@ -52,14 +53,6 @@ const Profile = () => {
         </View>
       </View>
       <View>
-        {/* <FlatList
-          data={buttons}
-          style={{ width: wp(100) }}
-          contentContainerStyle={{
-          }}
-          renderItem={({ item }) => {
-            return (
-               */}
         <View style={styles.buttonContainer}>
           {buttons?.map((item, index) => (
             <ProfileButton
@@ -69,15 +62,12 @@ const Profile = () => {
             />
           ))}
         </View>
-        {/* );
-          }}
-        /> */}
       </View>
     </ScrollView>
   );
 };
 
-export default Profile;
+export default Settings;
 
 const styles = StyleSheet.create({
   container: {

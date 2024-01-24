@@ -1,24 +1,19 @@
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Text,
-} from "react-native";
+import { View, TouchableOpacity, TextInput, Text } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, SIZES } from "@const/theme";
 import HeaderTitle from "@comp/header/HeaderTitle";
 import Search from "@/components/common/Search";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { globalStyles } from "styles/global";
 import { Link } from "expo-router";
-import CartIcon from "@/components/tab/CartIcon";
 import styles from "./customheader.style";
 import Cart from "@/components/details/Cart";
+import useAuthStore from "store/authStore";
 
-const CustomHeader = () => {
+const CustomHeader = ({}) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { user } = useAuthStore();
 
   const openSearchBar = () => {
     setIsOpen(true);
@@ -31,7 +26,10 @@ const CustomHeader = () => {
     <SafeAreaView style={styles.container}>
       {!isOpen ? (
         <View style={styles.searchView}>
-          <HeaderTitle />
+          <HeaderTitle
+            firstName={user.user.firstName}
+            lastName={user.user.lastName}
+          />
           <View style={styles.iconView}>
             <Link href="/cart" asChild>
               <TouchableOpacity style={styles.button}>

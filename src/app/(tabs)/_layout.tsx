@@ -22,7 +22,7 @@ export default function TabLayout() {
                 return (
                   <HomeIcon color={focused ? COLORS.primary : COLORS.gray4} />
                 );
-              case "favorite":
+              case "my-shop":
                 return (
                   <FavoriteIcon
                     color={focused ? COLORS.primary : COLORS.gray4}
@@ -42,8 +42,13 @@ export default function TabLayout() {
                 return null;
             }
           },
+
           tabBarActiveTintColor: COLORS.primary,
           tabBarInactiveTintColor: COLORS.gray4,
+          tabBarStyle: {
+            elevation: 0,
+            borderTopWidth: 0,
+          },
           tabBarLabelStyle: {
             fontFamily: FONTS.regular,
             bottom: 3,
@@ -55,9 +60,9 @@ export default function TabLayout() {
       >
         <Tabs.Screen name="home" />
         <Tabs.Screen
-          name="favorite"
+          name="my-shop"
           options={{
-            title: "Favorite",
+            title: "My Shop",
             headerTitle: "Favorite Item",
             headerTitleAlign: "center",
             headerLeft: () => (

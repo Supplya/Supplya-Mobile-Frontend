@@ -122,6 +122,7 @@ const useAuthStore = create<AuthStore>()((set) => ({
       if (jsonValue !== null) {
         console.log("Existing user data successfully retrieved");
         const userData = JSON.parse(jsonValue);
+        console.log("🚀 ~ getUserData: ~ userData:", userData);
         set({
           user: userData,
         });

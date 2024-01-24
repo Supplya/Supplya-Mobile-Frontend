@@ -7,6 +7,7 @@ import { COLORS } from "@const/theme";
 const CustomTabBar = (props) => {
   return (
     <View>
+      <View style={styles.fill} />
       <BottomTabBar {...props} />
       <View style={styles.fill} />
     </View>
