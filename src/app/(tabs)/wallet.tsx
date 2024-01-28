@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Cart = () => {
-  console.log("Cart screen rendered")
+const Wallet = () => {
+  console.log("Wallet screen rendered");
   return (
     <View style={styles.container}>
       <Text>Sell</Text>
@@ -10,7 +10,7 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default Wallet;
 
 const styles = StyleSheet.create({
   container: {

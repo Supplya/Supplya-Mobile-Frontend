@@ -20,7 +20,7 @@ const Footer = ({ product }: { product: Product }) => {
       <TouchableOpacity
         style={styles.cartButton}
         onPress={() => {
-          router.push("/order-summary");
+          router.push("/(shop)/cart");
         }}
       >
         <Cart />

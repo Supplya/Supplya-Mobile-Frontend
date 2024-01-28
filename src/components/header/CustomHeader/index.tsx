@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, TextInput, Text } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLORS, SIZES } from "@const/theme";
+import { COLORS } from "@const/theme";
 import HeaderTitle from "@comp/header/HeaderTitle";
 import Search from "@/components/common/Search";
 import { globalStyles } from "styles/global";
@@ -27,11 +27,11 @@ const CustomHeader = ({}) => {
       {!isOpen ? (
         <View style={styles.searchView}>
           <HeaderTitle
-            firstName={user.user.firstName}
-            lastName={user.user.lastName}
+            firstName={user?.user.firstName}
+            lastName={user?.user.lastName}
           />
           <View style={styles.iconView}>
-            <Link href="/cart" asChild>
+            <Link href="/(shop)/cart" asChild>
               <TouchableOpacity style={styles.button}>
                 <Cart />
               </TouchableOpacity>

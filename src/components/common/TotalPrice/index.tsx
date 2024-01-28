@@ -1,6 +1,5 @@
 import { Text, View } from "react-native";
 import React from "react";
-import { TotalPriceData } from "utils/types";
 import styles from "./totalprice.style";
 
 interface TotalPriceProps {
@@ -21,7 +20,7 @@ const TotalPrice = ({ total }: TotalPriceProps) => {
         <Text style={styles.price}>₦ {deliveryFee}</Text>
       </View>
       <View style={styles.totalView}>
-        <Text style={styles.name}>TanahAir voucher</Text>
+        <Text style={styles.name}>Voucher</Text>
         <Text style={styles.price}>None</Text>
       </View>
       <View style={styles.totalView}>

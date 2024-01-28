@@ -1,4 +1,5 @@
 import CustomHeader from "@/components/header/CustomHeader";
+import WalletIcon from "@/components/svg/WalletIcon";
 import Search from "@comp/common/Search";
 import BackButton from "@comp/header/BackButton";
 import CartIcon from "@comp/tab/CartIcon";
@@ -18,7 +19,7 @@ export default function TabLayout() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
             switch (route.name) {
-              case "home":
+              case "buy":
                 return (
                   <HomeIcon color={focused ? COLORS.primary : COLORS.gray4} />
                 );
@@ -28,9 +29,9 @@ export default function TabLayout() {
                     color={focused ? COLORS.primary : COLORS.gray4}
                   />
                 );
-              case "cart":
+              case "wallet":
                 return (
-                  <CartIcon color={focused ? COLORS.primary : COLORS.gray4} />
+                  <WalletIcon color={focused ? COLORS.primary : COLORS.gray4} />
                 );
               case "profile":
                 return (
@@ -58,7 +59,7 @@ export default function TabLayout() {
         })}
         tabBar={(props) => <CustomTabBar {...props} />}
       >
-        <Tabs.Screen name="home" />
+        <Tabs.Screen name="buy" />
         <Tabs.Screen
           name="my-shop"
           options={{
@@ -73,7 +74,7 @@ export default function TabLayout() {
             headerRight: () => <Search style={{ marginRight: 16 }} />,
           }}
         />
-        <Tabs.Screen name="cart" />
+        <Tabs.Screen name="wallet" />
         <Tabs.Screen name="profile" options={{ headerShown: false }} />
       </Tabs>
     </SafeAreaView>

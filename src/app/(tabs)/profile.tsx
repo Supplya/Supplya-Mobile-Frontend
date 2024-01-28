@@ -13,7 +13,7 @@ import { ButtonProps } from "utils/types";
 import { router } from "expo-router";
 
 const Settings = () => {
-  const { signOut } = useAuthStore();
+  const { signOut, user } = useAuthStore();
   const buttons: ButtonProps[] = [
     {
       label: "My Profile",
@@ -48,8 +48,10 @@ const Settings = () => {
           <Camera style={styles.camera} />
         </View>
         <View style={styles.nameView}>
-          <Text style={styles.name}>John Doe.</Text>
-          <Text style={styles.email}>example@email.com</Text>
+          <Text style={styles.name}>
+            {user?.user.firstName} {user?.user.lastName}
+          </Text>
+          <Text style={styles.email}>{user?.user.email}</Text>
         </View>
       </View>
       <View>
@@ -99,6 +101,7 @@ const styles = StyleSheet.create({
   },
   name: {
     ...globalStyles.fontBold24,
+    textTransform: "capitalize",
   },
   email: {
     ...globalStyles.fontRegular14,

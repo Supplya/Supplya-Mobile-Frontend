@@ -9,7 +9,7 @@ import PopularDeals from "@/components/home/PopularDeals";
 import { useNavigation } from "expo-router";
 import CustomHeader from "@/components/header/CustomHeader";
 
-const Home = () => {
+const Buy = () => {
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({
@@ -29,7 +29,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Buy;
 
 const styles = StyleSheet.create({
   container: {

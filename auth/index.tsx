@@ -16,11 +16,11 @@ const useProtectedRoute = (currentUser: UserData) => {
 
       // If it is successful it checks navigates to chatlist only if the app has just been opened
     } else if (segments[0] === undefined) {
-      router.replace("/home");
+      router.replace("/buy");
 
       // If user is in the authentication screen and login is successful, it navigates to the chat list screen
     } else if (inAuthRoute && currentUser) {
-      router.replace("/home");
+      router.replace("/buy");
     }
   };
 

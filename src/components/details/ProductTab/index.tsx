@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import styles from "./producttab.style";
 import { globalStyles } from "styles/global";
-import { COLORS } from "@const/theme";
 
 const ProductTab = ({ activeTab, setActiveTab, tabs }) => {
   return (
